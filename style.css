@@ -1449,24 +1449,41 @@ body::before {
         filter: none !important;
     }
     
-    /* Simplify animations on mobile to prevent stuck states */
+    /* Re-enable simplified animations on mobile */
     .fade-in,
-    .fade-in-up,
-    .fade-in-left,
-    .fade-in-right {
-        opacity: 1 !important;
-        transform: none !important;
-        filter: none !important;
-        transition: none !important;
+    .fade-in-up {
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
     }
     
     .fade-in.visible,
-    .fade-in-up.visible,
-    .fade-in-left.visible,
+    .fade-in-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Keep fade-in-left and fade-in-right simpler on mobile */
+    .fade-in-left {
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    
+    .fade-in-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    .fade-in-right {
+        opacity: 0;
+        transform: translateX(10px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    
     .fade-in-right.visible {
-        opacity: 1 !important;
-        transform: none !important;
-        filter: none !important;
+        opacity: 1;
+        transform: translateX(0);
     }
 
     /* Improved navbar layout for mobile */
@@ -1479,15 +1496,16 @@ body::before {
 
     .nav-container {
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center; /* Center when logo is hidden */
         align-items: center;
         padding: 0 0.75rem;
-        gap: 0.25rem;
+        gap: 0.5rem; /* Increased gap for better spacing */
         min-height: 44px; /* Ensure minimum touch target */
+        position: relative;
     }
 
     .nav-logo {
-        flex-shrink: 0;
+        display: none; /* Hide name on mobile for more space */
     }
 
     .nav-logo h2 {
@@ -1497,8 +1515,8 @@ body::before {
 
     .nav-menu {
         display: flex;
-        gap: 0.15rem;
-        flex: 1;
+        gap: 0.25rem; /* Increased gap */
+        flex: none; /* Remove flex grow when logo is hidden */
         justify-content: center;
         overflow-x: auto;
         scrollbar-width: none;
@@ -1520,7 +1538,8 @@ body::before {
     }
 
     .nav-contact {
-        flex-shrink: 0;
+        position: absolute;
+        right: 0.75rem; /* Position contact button absolutely */
     }
 
     .contact-button {
@@ -1563,6 +1582,13 @@ body::before {
         padding: 3rem 0;
         align-items: flex-start;
     }
+    
+    /* Specific mobile optimizations for resume section */
+    .resume-section {
+        padding: 2rem 0;
+        overflow-x: hidden;
+        width: 100%;
+    }
 
     .section-title {
         font-size: 2rem;
@@ -1575,26 +1601,85 @@ body::before {
     }
 
     .timeline::before {
-        left: 1rem;
+        display: none; /* Remove the central line on mobile */
     }
 
     .timeline-item {
         flex-direction: column;
-        margin-left: 2rem;
+        margin: 1.5rem 0;
+        margin-left: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+        box-sizing: border-box;
     }
 
     .timeline-item:nth-child(even) {
         flex-direction: column;
     }
 
+    .timeline-date {
+        position: relative;
+        left: auto;
+        transform: none;
+        margin-bottom: 1rem;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+        width: fit-content;
+        background: rgba(99, 102, 241, 0.2);
+        border: 1px solid rgba(99, 102, 241, 0.4);
+        border-radius: 15px;
+    }
+    
     .timeline-date::after {
-        left: -1.5rem !important;
-        right: auto !important;
+        display: none; /* Remove the dot on mobile */
     }
 
     .education-skills {
         grid-template-columns: 1fr;
         gap: 2rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    
+    /* Mobile timeline content optimization */
+    .timeline-content {
+        width: 100%;
+        max-width: none;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    
+    /* Mobile cards optimization */
+    .degree-card,
+    .skills {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    
+    .skills-grid {
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .skill-tags {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .skill-tag {
+        word-break: break-word;
     }
 
     .projects-grid {
@@ -1611,9 +1696,24 @@ body::before {
         gap: 1rem;
         text-align: center;
     }
+    
+    /* Add mobile-specific footer message */
+    .footer-content::after {
+        content: "💻 Best experienced on desktop or laptop";
+        display: block;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.8rem;
+        font-style: italic;
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
     .section-content {
         padding: 0 1rem;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 }
 

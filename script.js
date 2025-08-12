@@ -210,12 +210,8 @@ document.addEventListener('DOMContentLoaded', function() {
             el.style.setProperty('--stagger-delay', `${index * 100}ms`);
         }
         
-        // On mobile, immediately make elements visible to prevent animation issues
-        if (isMobile) {
-            el.classList.add('visible');
-        } else {
-            observer.observe(el);
-        }
+        // On mobile, use observer with simpler animations, on desktop use full animations
+        observer.observe(el);
     });
 
     // Handle staggered animations for grouped elements
@@ -233,12 +229,8 @@ document.addEventListener('DOMContentLoaded', function() {
         stat.classList.add('fade-in', 'stagger-animation');
         stat.style.setProperty('--stagger-delay', `${(index * 200) + 400}ms`);
         
-        // On mobile, immediately make stats visible
-        if (isMobile) {
-            stat.classList.add('visible');
-        } else {
-            observer.observe(stat);
-        }
+        // Use observer for both mobile and desktop with appropriate animations
+        observer.observe(stat);
     });
 
     // Typing animation for hero title
