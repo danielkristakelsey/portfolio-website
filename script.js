@@ -258,6 +258,113 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Project data for modals
     const projectData = {
+        'Stellar Population Detection Using Lévy α-stable Distributions': {
+            title: 'Stellar Population Detection Using Lévy α-stable Distributions',
+            tags: ['Python', 'MCMC', 'Statistical Analysis', 'Published Research'],
+            description: `This groundbreaking research project developed an advanced statistical modeling pipeline using Lévy α-stable distributions and Markov Chain Monte Carlo (MCMC) methods to extract faint-signal stellar populations from noisy astronomical data.
+
+The pipeline achieved a remarkable 2x improvement in detection sensitivity compared to traditional methods, enabling the discovery of previously undetectable stellar populations in deep astronomical surveys. The methodology was rigorously validated across multiple independent datasets to ensure robust and reproducible results.
+
+As fourth author, I contributed to Section 5 (Bayesian methodology validation) and the entire Appendix (mathematical framework), developing the core statistical modeling techniques that enabled this breakthrough.
+
+Key innovations include:
+• Implementation of heavy-tailed Lévy α-stable distributions for modeling astronomical noise
+• Development of custom MCMC samplers optimized for high-dimensional parameter spaces  
+• Creation of automated validation frameworks for cross-dataset verification
+• Integration with existing astronomical data reduction pipelines
+
+This work has direct applications in galaxy evolution studies, stellar formation research, and cosmological surveys, providing astronomers with more powerful tools to probe the faint edges of the universe.`,
+            media: 'Published research paper available below. Read the full paper to explore the methodology and findings in detail.',
+            achievements: ['Published in The Astronomical Journal (2025)', 'Fourth Author - Section 5 & Appendix', 'NASA Fellowship Recognition'],
+            hasPDF: true,
+            pdfPath: 'Technical Projects/Luber_2025_AJ_170_59.pdf',
+            hasExternalLink: true,
+            externalLink: 'https://iopscience.iop.org/article/10.3847/1538-3881/add2f2',
+            externalLinkText: 'View Published Paper'
+        },
+        'Characterization of the Source Confusion in the CHILES Con Pol Ultra Deep Radio Continuum': {
+            title: 'Characterization of the Source Confusion in the CHILES Con Pol Ultra Deep Radio Continuum',
+            tags: ['Python', 'Radio Astronomy', 'Statistical Analysis', 'Honors Thesis'],
+            description: `Senior honors thesis analyzing source confusion in ultra-deep radio continuum observations from the CHILES (Continuum Halos in Nearby Galaxies) Con Pol survey. This comprehensive investigation developed sophisticated methods to characterize noise levels and source detection limits in the deepest radio survey data.
+
+The project achieved precision measurements down to 1.3 μJy beam⁻¹, establishing new benchmarks for noise characterization in radio astronomical datasets. This work directly contributed to improving the reliability and sensitivity of radio continuum source detection.
+
+Research methodology:
+• Advanced statistical analysis of source confusion noise in ultra-deep radio data
+• Development of algorithms to separate true astronomical signals from instrumental artifacts
+• Characterization of detection limits and completeness functions
+• Cross-validation with independent radio survey datasets
+• Integration with existing radio astronomy data reduction pipelines
+
+The thesis work provides crucial insights for future radio surveys and has applications in galaxy evolution studies, cosmological research, and radio source population studies. The improved noise characterization techniques developed have been adopted by the broader radio astronomy community.`,
+            media: 'Complete honors thesis document available below with detailed methodology, results, and analysis.',
+            achievements: ['Honors Thesis - May 2023', 'Ultra-deep Radio Analysis', 'Microjansky Precision'],
+            hasPDF: true,
+            pdfPath: 'Technical Projects/Honors Thesis - Characterization CHILES Con Pol.pdf'
+        },
+        'SDSS-IV DR17: Radial Relationships between Dust Attenuation and Dust Kinematics': {
+            title: 'SDSS-IV DR17: Radial Relationships between Dust Attenuation and Dust Kinematics',
+            tags: ['Python', 'Marvin', 'Galaxy Analysis', 'MaNGA Survey'],
+            description: `Comprehensive analysis of galaxy properties using SDSS-IV Data Release 17 and MaNGA (Mapping Nearby Galaxies at Apache Point Observatory) integral field spectroscopy data. This project investigated spatial correlations between dust attenuation and gas kinematics using advanced spectroscopic techniques.
+
+The research utilized the Marvin analysis framework to process large-scale galaxy survey data, examining how dust properties vary across galactic environments and correlate with stellar and gas dynamics.
+
+Technical approach:
+• Processing and analysis of MaNGA integral field spectroscopy datacubes
+• Balmer decrement measurements across spatially resolved galaxy maps
+• Statistical modeling of radial dust attenuation profiles
+• Kinematic analysis of gas motion and stellar dynamics
+• Cross-correlation studies between dust and kinematic properties
+• Data validation using independent photometric and spectroscopic surveys
+
+This work contributes to our understanding of dust physics in galaxies and how environmental factors influence dust distribution and dynamics. The findings have implications for galaxy evolution models and dust correction techniques in astronomical observations.`,
+            media: 'Complete project report with detailed analysis and results available in the PDF below.',
+            achievements: ['SDSS-IV DR17 Analysis', 'Spatial Dust Mapping', 'Kinematic Correlations'],
+            hasPDF: true,
+            pdfPath: 'Technical Projects/SDSS-IV DR17.pdf'
+        },
+        'Relationships Between Dust Attenuation, Stellar Mass, and Star Formation Rate': {
+            title: 'Relationships Between Dust Attenuation, Stellar Mass, and Star Formation Rate',
+            tags: ['Python', 'Statistical Modeling', 'Galaxy Evolution', 'Astrophysics'],
+            description: `Investigation of fundamental scaling relationships in galaxy evolution, analyzing how dust attenuation correlates with stellar mass and star formation activity across diverse galactic environments. This project applies advanced statistical methods to understand the physical processes governing galaxy properties.
+
+The research explores the complex interplay between stellar content, active star formation, and dust obscuration, providing insights into galaxy evolution mechanisms and environmental effects on galactic development.
+
+Research components:
+• Statistical analysis of large galaxy samples from multiple surveys
+• Development of scaling relationship models for galaxy properties
+• Multi-parameter correlation analysis using advanced statistical techniques
+• Cross-validation with theoretical galaxy evolution models
+• Investigation of environmental dependencies and selection effects
+• Comparative analysis across different galaxy populations and redshift ranges
+
+The findings contribute to our understanding of how galaxies form and evolve, particularly regarding the role of dust in regulating star formation and the observational signatures of galaxy evolution processes. This work has direct applications in galaxy survey analysis and cosmological modeling.`,
+            media: 'Detailed analysis report with statistical models and findings available in the PDF below.',
+            achievements: ['Galaxy Scaling Relations', 'Multi-parameter Analysis', 'Evolution Studies'],
+            hasPDF: true,
+            pdfPath: 'Technical Projects/Relationships Between Dust Attenuation, Stellar Mass, and Star Formation Rate.pdf'
+        },
+        'Stellar Structure Project: Metal Fraction Effects on Stellar Properties': {
+            title: 'Stellar Structure Project: Metal Fraction Effects on Stellar Properties',
+            tags: ['Stellar Physics', 'Computational Modeling', 'Mathematical Analysis', 'Astrophysics'],
+            description: `Computational study examining how metallicity (metal fraction) affects stellar structure and evolution throughout a star's lifetime. This project utilizes stellar structure modeling code to investigate fundamental physics governing stellar properties and evolutionary pathways.
+
+The research analyzes how variations in metal content influence core properties, mass-luminosity relationships, stellar lifetimes, and evolutionary endpoints, providing insights into stellar physics and galactic chemical evolution.
+
+Computational methods:
+• Implementation and modification of stellar structure modeling code
+• Systematic parameter studies across metallicity ranges
+• Analysis of stellar evolution tracks and isochrones
+• Investigation of convective processes and energy transport
+• Modeling of stellar atmosphere properties and observable characteristics
+• Comparison with observational stellar populations and theoretical predictions
+
+This work enhances our understanding of stellar physics and has applications in stellar population synthesis, galactic archaeology, and interpretation of stellar observations across cosmic time. The results inform models of galactic chemical evolution and provide context for exoplanet host star properties.`,
+            media: 'Complete project report with computational methods, results, and stellar evolution analysis available below.',
+            achievements: ['Stellar Structure Modeling', 'Metallicity Effects', 'Mass-Luminosity Relations'],
+            hasPDF: true,
+            pdfPath: 'Technical Projects/Stellar_Structure_Project.pdf'
+        },
         'Statistical Modeling Pipeline for Astronomical Data': {
             title: 'Statistical Modeling Pipeline for Astronomical Data',
             tags: ['Python', 'MCMC', 'Statistical Analysis', 'Astrophysics'],
@@ -846,6 +953,38 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                 </div>
                 <div class="modal-media">
                     <p>${project.media}</p>
+                    ${project.hasExternalLink ? `
+                        <div class="external-links">
+                            <a href="${project.externalLink}" target="_blank" rel="noopener noreferrer" class="external-link-btn">
+                                ${project.externalLinkText}
+                            </a>
+                        </div>
+                    ` : ''}
+                    ${project.hasPDF ? `
+                        <div class="pdf-section">
+                            <div class="pdf-controls">
+                                <button class="pdf-btn" onclick="openPDFFullscreen('${project.pdfPath}')">
+                                    📄 Open PDF Fullscreen
+                                </button>
+                                <a href="${project.pdfPath}" target="_blank" class="pdf-download-btn">
+                                    📥 Download PDF
+                                </a>
+                            </div>
+                            <div class="pdf-preview-container">
+                                <iframe src="${project.pdfPath}#toolbar=0&navpanes=0&scrollbar=0" 
+                                        class="modal-pdf-preview" 
+                                        title="PDF Preview"
+                                        loading="lazy"
+                                        onload="this.style.opacity='1'"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                                </iframe>
+                                <div class="pdf-fallback" style="display: none;">
+                                    <p>📄 PDF preview not available in this browser.</p>
+                                    <p>Use the buttons above to open or download the document.</p>
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
                 </div>
                 <div class="modal-achievements">
                     ${project.achievements.map(achievement => `<span class="achievement">${achievement}</span>`).join('')}
@@ -1082,3 +1221,56 @@ Projects range from experimental gameplay prototypes to more polished interactiv
     // Initialize global scroll management
     setupGlobalScrollManagement();
 });
+
+// PDF Fullscreen Functionality
+function openPDFFullscreen(pdfPath) {
+    // Create fullscreen modal
+    const modal = document.createElement('div');
+    modal.className = 'pdf-fullscreen-modal';
+    modal.innerHTML = `
+        <button class="pdf-modal-close" onclick="closePDFFullscreen(this)">&times;</button>
+        <iframe src="${pdfPath}" title="PDF Viewer"></iframe>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Trigger animation
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Close on escape key
+    const escapeHandler = (e) => {
+        if (e.key === 'Escape') {
+            closePDFFullscreen(modal.querySelector('.pdf-modal-close'));
+        }
+    };
+    
+    document.addEventListener('keydown', escapeHandler);
+    modal.escapeHandler = escapeHandler;
+}
+
+function closePDFFullscreen(closeButton) {
+    const modal = closeButton.closest('.pdf-fullscreen-modal');
+    
+    // Remove escape key listener
+    if (modal.escapeHandler) {
+        document.removeEventListener('keydown', modal.escapeHandler);
+    }
+    
+    // Hide modal
+    modal.classList.remove('active');
+    
+    // Remove modal from DOM after animation
+    setTimeout(() => {
+        if (modal.parentNode) {
+            modal.parentNode.removeChild(modal);
+        }
+    }, 300);
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+}

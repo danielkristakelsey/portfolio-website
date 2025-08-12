@@ -842,6 +842,7 @@ body::before {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .contact-button::before {
@@ -854,6 +855,13 @@ body::before {
     background: linear-gradient(135deg, #7c3aed, #6366f1);
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.contact-button span,
+.contact-button {
+    position: relative;
+    z-index: 2;
 }
 
 .contact-button:hover::before {
@@ -862,7 +870,22 @@ body::before {
 
 .contact-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    box-shadow: 
+        0 10px 25px rgba(99, 102, 241, 0.4),
+        0 0 20px rgba(99, 102, 241, 0.3),
+        0 0 40px rgba(139, 92, 246, 0.2);
+    color: white;
+    border-radius: 12px;
+}
+
+.contact-button:active {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 5px 15px rgba(99, 102, 241, 0.5),
+        0 0 15px rgba(99, 102, 241, 0.4),
+        0 0 30px rgba(139, 92, 246, 0.3);
+    color: white;
+    border-radius: 12px;
 }
 
 /* Main Content */
@@ -1420,6 +1443,110 @@ body::before {
     margin-top: 1.5rem;
 }
 
+/* External Links and PDF Sections */
+.external-links {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.external-link-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.external-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, #5856eb, #7c3aed);
+}
+
+.pdf-section {
+    margin: 1.5rem 0;
+}
+
+.pdf-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.pdf-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+    text-decoration: none;
+}
+
+.pdf-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+    background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.pdf-download-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    text-decoration: none;
+}
+
+.pdf-download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+.pdf-preview-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-pdf-preview {
+    width: 100%;
+    height: 500px;
+    border: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: white;
+}
+
+.pdf-fallback {
+    padding: 2rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.pdf-fallback p {
+    margin: 0.5rem 0;
+}
+
 .section-subtitle {
     text-align: center;
     font-size: 1.1rem;
@@ -1931,5 +2058,143 @@ body::before {
     .modal-media {
         padding: 1.5rem;
         margin-bottom: 1.5rem;
+    }
+}
+
+/* PDF Viewer Styles */
+.pdf-viewer-container {
+    margin-top: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(20, 20, 20, 0.5);
+}
+
+.pdf-viewer {
+    width: 100%;
+    height: 400px;
+    border: none;
+    display: block;
+}
+
+.fullscreen-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fullscreen-btn:hover {
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.fullscreen-btn:active {
+    transform: translateY(1px);
+}
+
+/* PDF Fullscreen Modal */
+.pdf-fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.pdf-fullscreen-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.pdf-fullscreen-modal iframe {
+    width: 100%;
+    height: 90%;
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    border-radius: 12px;
+}
+
+.pdf-modal-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 3001;
+}
+
+.pdf-modal-close:hover {
+    background: rgba(99, 102, 241, 0.8);
+    transform: scale(1.05);
+}
+
+/* Mobile PDF Viewer */
+@media (max-width: 768px) {
+    .pdf-viewer {
+        height: 300px;
+    }
+    
+    .pdf-fullscreen-modal {
+        padding: 1rem;
+    }
+    
+    .pdf-fullscreen-modal iframe {
+        height: 85%;
+    }
+    
+    .pdf-modal-close {
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    /* Mobile PDF Controls */
+    .pdf-controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .pdf-btn, .pdf-download-btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .modal-pdf-preview {
+        height: 350px;
+    }
+    
+    .pdf-fallback {
+        padding: 1.5rem;
     }
 }
