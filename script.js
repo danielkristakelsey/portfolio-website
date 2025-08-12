@@ -53,34 +53,59 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add scroll effect to navbar
+    // Floating Navigation with Auto-Hide (Cursor.com style)
     let lastScrollY = window.scrollY;
+    let scrollTimeout = null;
     const navbar = document.querySelector('.navbar');
 
-    window.addEventListener('scroll', function() {
+    function updateNavbar() {
         const currentScrollY = window.scrollY;
+        const scrollDifference = Math.abs(currentScrollY - lastScrollY);
         
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            // Scrolling down
-            navbar.style.transform = 'translateY(-100%)';
+        // Add scrolled class for enhanced blur/shadow when scrolled
+        if (currentScrollY > 100) {
+            navbar.classList.add('scrolled');
         } else {
-            // Scrolling up
-            navbar.style.transform = 'translateY(0)';
+            navbar.classList.remove('scrolled');
+        }
+        
+        // Hide navbar when scrolling down significantly and fast
+        if (currentScrollY > lastScrollY && currentScrollY > 200 && scrollDifference > 5) {
+            navbar.classList.add('hidden');
+        } else if (currentScrollY < lastScrollY || currentScrollY <= 100) {
+            // Show navbar when scrolling up or at top
+            navbar.classList.remove('hidden');
         }
         
         lastScrollY = currentScrollY;
+        
+        // Clear any existing timeout
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        
+        // Auto-show navbar after user stops scrolling
+        scrollTimeout = setTimeout(() => {
+            if (navbar.classList.contains('hidden') && window.scrollY > 200) {
+                // Keep it hidden if user is deep in content and stopped scrolling
+                return;
+            }
+            navbar.classList.remove('hidden');
+        }, 1500); // Show after 1.5s of no scrolling
+    }
+
+    window.addEventListener('scroll', updateNavbar, { passive: true });
+
+    // Show navbar on mouse movement near top of screen
+    window.addEventListener('mousemove', function(e) {
+        if (e.clientY < 100 && navbar.classList.contains('hidden')) {
+            navbar.classList.remove('hidden');
+        }
     });
 
-    // Add navbar background opacity based on scroll
-    window.addEventListener('scroll', function() {
-        const scrolled = window.scrollY;
-        const navbar = document.querySelector('.navbar');
-        
-        if (scrolled > 50) {
-            navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-        } else {
-            navbar.style.background = 'rgba(10, 10, 10, 0.8)';
-        }
+    // Show navbar on focus for accessibility
+    navbar.addEventListener('focusin', function() {
+        navbar.classList.remove('hidden');
     });
 
     // Intersection Observer for animations

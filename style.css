@@ -32,14 +32,30 @@ body::before {
 /* Navigation */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgba(10, 10, 10, 0.8);
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 1000px;
+    background: rgba(10, 10, 10, 0.9);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
     z-index: 1000;
-    padding: 1rem 0;
+    padding: 0.75rem 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.navbar.hidden {
+    transform: translateX(-50%) translateY(-120%);
+    opacity: 0;
+}
+
+.navbar.scrolled {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .nav-container {
@@ -139,8 +155,8 @@ body::before {
 
 /* Main Content */
 .main-content {
-    margin-top: 80px;
-    min-height: calc(100vh - 80px);
+    margin-top: 40px;
+    min-height: calc(100vh - 40px);
 }
 
 .tab-content {
@@ -627,7 +643,12 @@ body::before {
     }
 
     .main-content {
-        margin-top: 120px;
+        margin-top: 40px;
+    }
+    
+    .navbar {
+        top: 10px;
+        width: calc(100% - 20px);
     }
 
     .hero-title {
