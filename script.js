@@ -928,6 +928,13 @@ Projects range from experimental gameplay prototypes to more polished interactiv
     // Modal functionality
     function createModal(projectTitle) {
         console.log('Creating modal for:', projectTitle);
+        
+        // Close any existing modals first
+        const existingModals = document.querySelectorAll('.project-modal');
+        existingModals.forEach(existingModal => {
+            closeModal(existingModal);
+        });
+        
         const project = projectData[projectTitle];
         if (!project) {
             console.error('Project not found:', projectTitle);
@@ -1019,9 +1026,10 @@ Projects range from experimental gameplay prototypes to more polished interactiv
         const handleEscape = (e) => {
             if (e.key === 'Escape') {
                 closeModal(modal);
-                document.removeEventListener('keydown', handleEscape);
             }
         };
+        // Store handler reference for cleanup
+        modal.escapeHandler = handleEscape;
         document.addEventListener('keydown', handleEscape);
     }
 
@@ -1031,13 +1039,29 @@ Projects range from experimental gameplay prototypes to more polished interactiv
             modal.audioPlayer.destroy();
         }
         
+        // Remove any keyboard event listeners
+        if (modal.escapeHandler) {
+            document.removeEventListener('keydown', modal.escapeHandler);
+        }
+        
         setModalState(false);
         modal.classList.remove('active');
-        setTimeout(() => {
+        
+        // Remove modal immediately if it's being replaced, or with animation if user closed it
+        const isBeingReplaced = document.querySelectorAll('.project-modal').length > 1;
+        if (isBeingReplaced) {
+            // Immediate removal when replacing
             if (modal.parentNode) {
                 modal.parentNode.removeChild(modal);
             }
-        }, 300);
+        } else {
+            // Animated removal when user closes
+            setTimeout(() => {
+                if (modal.parentNode) {
+                    modal.parentNode.removeChild(modal);
+                }
+            }, 300);
+        }
     }
 
     // Add click events to clickable project cards
@@ -1046,15 +1070,21 @@ Projects range from experimental gameplay prototypes to more polished interactiv
         console.log('Found clickable cards:', clickableCards.length);
         
         clickableCards.forEach((card, index) => {
+            // Skip if already initialized
+            if (card.dataset.initialized === 'true') {
+                return;
+            }
+            
             const h3Element = card.querySelector('h3');
             if (h3Element) {
                 const projectTitle = h3Element.textContent.trim();
-                console.log(`Card ${index}: "${projectTitle}"`);
+                console.log(`Initializing card ${index}: "${projectTitle}"`);
                 
                 // Add visual feedback for clickable cards
                 card.style.cursor = 'pointer';
                 
-                card.addEventListener('click', function() {
+                // Create a single click handler
+                const clickHandler = function() {
                     console.log('Clicked on project:', projectTitle);
                     const project = projectData[projectTitle];
                     if (project) {
@@ -1064,16 +1094,28 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                         console.error('No project data found for:', projectTitle);
                         console.log('Available projects:', Object.keys(projectData));
                     }
-                });
+                };
                 
-                // Add hover effect
-                card.addEventListener('mouseenter', function() {
+                const hoverInHandler = function() {
                     this.style.transform = 'translateY(-5px) scale(1.02)';
-                });
+                };
                 
-                card.addEventListener('mouseleave', function() {
+                const hoverOutHandler = function() {
                     this.style.transform = 'translateY(0) scale(1)';
-                });
+                };
+                
+                // Add event listeners
+                card.addEventListener('click', clickHandler);
+                card.addEventListener('mouseenter', hoverInHandler);
+                card.addEventListener('mouseleave', hoverOutHandler);
+                
+                // Mark as initialized
+                card.dataset.initialized = 'true';
+                
+                // Store handlers for potential cleanup
+                card._clickHandler = clickHandler;
+                card._hoverInHandler = hoverInHandler;
+                card._hoverOutHandler = hoverOutHandler;
             } else {
                 console.warn('No h3 element found in card:', index);
             }
