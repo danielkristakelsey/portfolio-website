@@ -181,9 +181,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Enhanced Intersection Observer for smooth animations with fade in/out
+    // Disable complex animations on mobile to prevent stuck states
+    const isMobile = window.innerWidth <= 768;
+    
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: isMobile ? 0.05 : 0.1,
+        rootMargin: isMobile ? '0px 0px -20px 0px' : '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
@@ -191,8 +194,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
             } else {
-                // Fade out when scrolling away (optional - creates cool effect)
-                entry.target.classList.remove('visible');
+                // On mobile, keep elements visible once seen to prevent animation issues
+                if (!isMobile) {
+                    entry.target.classList.remove('visible');
+                }
             }
         });
     }, observerOptions);
@@ -204,7 +209,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (el.classList.contains('stagger-animation')) {
             el.style.setProperty('--stagger-delay', `${index * 100}ms`);
         }
-        observer.observe(el);
+        
+        // On mobile, immediately make elements visible to prevent animation issues
+        if (isMobile) {
+            el.classList.add('visible');
+        } else {
+            observer.observe(el);
+        }
     });
 
     // Handle staggered animations for grouped elements
@@ -221,7 +232,13 @@ document.addEventListener('DOMContentLoaded', function() {
     heroStats.forEach((stat, index) => {
         stat.classList.add('fade-in', 'stagger-animation');
         stat.style.setProperty('--stagger-delay', `${(index * 200) + 400}ms`);
-        observer.observe(stat);
+        
+        // On mobile, immediately make stats visible
+        if (isMobile) {
+            stat.classList.add('visible');
+        } else {
+            observer.observe(stat);
+        }
     });
 
     // Typing animation for hero title
