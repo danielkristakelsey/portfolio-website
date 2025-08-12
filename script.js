@@ -2283,3 +2283,35 @@ function closePDFFullscreen(closeButton) {
     // Restore body scroll
     document.body.style.overflow = '';
 }
+
+// Timeline Date Splitting Function
+// Splits timeline dates into separate start and end date pills positioned on either side of the purple line
+function initializeTimelineDateSplitting() {
+    const timelineDates = document.querySelectorAll('.timeline-date');
+    
+    timelineDates.forEach(dateElement => {
+        const originalText = dateElement.textContent.trim();
+        
+        // Check if the date contains a dash (indicating a date range)
+        if (originalText.includes(' - ')) {
+            const [startDate, endDate] = originalText.split(' - ');
+            
+            // Create new structure with separate date pills
+            dateElement.innerHTML = `
+                <span class="date-start">${startDate.trim()}</span>
+                <span class="date-end">${endDate.trim()}</span>
+            `;
+        } else {
+            // For single dates (like in honors section), keep as single pill but centered
+            dateElement.innerHTML = `<span class="date-start">${originalText}</span>`;
+        }
+    });
+}
+
+// Initialize timeline date splitting when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait a bit for other initializations to complete
+    setTimeout(() => {
+        initializeTimelineDateSplitting();
+    }, 100);
+});
