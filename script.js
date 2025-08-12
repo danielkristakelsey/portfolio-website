@@ -434,21 +434,42 @@ This experience developed crucial skills in stakeholder management, cultural com
         'Music Production Portfolio': {
             title: 'Music Production Portfolio',
             tags: ['Logic Pro', 'Audio Engineering', 'Composition', 'Creative Technology'],
-            description: `Comprehensive music production portfolio showcasing technical audio engineering expertise combined with creative composition across multiple genres and musical styles.
+            description: `<div class="project-intro">
+<p>Comprehensive music production portfolio showcasing technical audio engineering expertise combined with creative composition across multiple genres and musical styles. This collection demonstrates proficiency in professional audio production workflows, from initial composition and arrangement through final mastering.</p>
+</div>
 
-This collection demonstrates proficiency in professional audio production workflows, from initial composition and arrangement through final mastering, utilizing industry-standard tools and techniques.
+<div class="concept-section">
+<h3>🎵 Portfolio Overview</h3>
+<p>The audio files in the player below represent various stages of the production process, including finished songs, mixed and mastered tracks, unmixed and unpolished demos, and creative examples. This range provides insight into different aspects of the creative and technical workflow spanning multiple genres from electronic and ambient compositions to more traditional arrangements.</p>
+</div>
 
-**Note:** The audio files in the player below represent various stages of the production process, including finished songs, mixed and mastered tracks, unmixed and unpolished demos, and creative examples. This range provides insight into different aspects of the creative and technical workflow.
+<div class="contributions-section">
+<h3>⚡ Technical Capabilities</h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Multi-track Production:</strong> Recording and editing in Logic Pro with advanced MIDI programming and sequencing
+</div>
+<div class="feature-item">
+<strong>Professional Mixing:</strong> Advanced techniques including EQ, compression, spatial processing, and dynamic control
+</div>
+<div class="feature-item">
+<strong>Sound Design:</strong> Original synthesis and sound creation for unique sonic textures and atmospheric elements
+</div>
+<div class="feature-item">
+<strong>Audio Post-Production:</strong> Professional mastering workflows with industry-standard tools and techniques
+</div>
+<div class="feature-item">
+<strong>Hybrid Production:</strong> Integration of live instrumentation with digital elements and virtual instruments
+</div>
+<div class="feature-item">
+<strong>Collaborative Work:</strong> Production coordination with vocalists, instrumentalists, and other creative partners
+</div>
+</div>
+</div>
 
-Technical capabilities include:
-• Multi-track recording and editing in Logic Pro with advanced MIDI programming
-• Professional mixing techniques including EQ, compression, and spatial processing
-• Sound design and synthesis for original sonic textures
-• Audio post-production and mastering workflows
-• Integration of live instrumentation with digital elements
-• Collaborative production with vocalists and instrumentalists
-
-The portfolio spans genres from electronic and ambient compositions to more traditional arrangements, showcasing versatility and adaptability in creative technical problem-solving.`,
+<div class="summary-section">
+<p><em>This portfolio showcases versatility and adaptability in creative technical problem-solving, demonstrating both artistic vision and technical proficiency across diverse musical contexts and production challenges.</em></p>
+</div>`,
             media: 'Browse and listen to music compositions directly in the player below. New tracks added regularly.',
             achievements: ['Multi-Genre Compositions', 'Professional Audio Engineering', 'Creative Technical Innovation'],
             hasAudioPlayer: true,
@@ -548,6 +569,381 @@ Development areas include:
 Projects range from experimental gameplay prototypes to more polished interactive experiences, each focusing on different aspects of game development and player engagement.`,
             media: 'Playable builds and development documentation available. Video demonstrations of key gameplay mechanics and systems.',
             achievements: ['Interactive Experience Design', 'Creative Technical Solutions', 'Multi-Platform Development']
+        },
+        'Published Music Profiles': {
+            title: 'Published Music Profiles',
+            tags: ['Music Distribution', 'Digital Marketing', 'Brand Development', 'Streaming Platforms'],
+            description: `<div class="project-intro">
+<p>Professional music publishing and distribution across major streaming platforms, building artist presence and engaging audiences through strategic content creation and brand development. This project showcases professional music releases distributed through major platforms including Spotify, Apple Music, Amazon Music, and dozens of other streaming services worldwide.</p>
+</div>
+
+<div class="concept-section">
+<h3>🎯 Distribution Strategy</h3>
+<p>Each release represents a complete production cycle from initial composition through final distribution, demonstrating end-to-end music industry knowledge and execution capabilities across multiple international markets and platforms.</p>
+</div>
+
+<div class="contributions-section">
+<h3>⚡ Professional Implementation</h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Production & Mastering:</strong> Professional music production and mastering specifically optimized for commercial distribution standards
+</div>
+<div class="feature-item">
+<strong>Release Planning:</strong> Strategic release coordination with digital marketing campaigns and platform-specific optimization
+</div>
+<div class="feature-item">
+<strong>Brand Development:</strong> Cross-platform artist identity creation with consistent visual and audio branding elements
+</div>
+<div class="feature-item">
+<strong>Platform Optimization:</strong> Audience engagement strategies through streaming platform algorithms and discovery features
+</div>
+<div class="feature-item">
+<strong>Revenue Generation:</strong> Monetization through digital music sales, streaming royalties, and licensing opportunities
+</div>
+<div class="feature-item">
+<strong>Global Distribution:</strong> International distribution networks reaching worldwide audiences across diverse markets
+</div>
+</div>
+</div>
+
+<div class="summary-section">
+<p><em>This comprehensive approach to music distribution demonstrates professional industry knowledge, strategic marketing acumen, and the ability to navigate complex digital music ecosystems for sustainable artistic career development.</em></p>
+</div>`,
+            media: 'Stream published music directly through the embedded players below, showcasing professionally distributed tracks available on all major platforms.',
+            achievements: ['Multi-Platform Distribution', 'Professional Branding', 'Commercial Music Release'],
+            hasMusicEmbeds: true,
+            musicEmbeds: {
+                spotify: {
+                    title: 'Spotify',
+                    code: '<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/2TQd5LtV4wFuxJ5xLkpWHw?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
+                    color: '#1db954'
+                },
+                appleMusic: {
+                    title: 'Apple Music',
+                    code: '<div class="music-profile-link"><a href="https://music.apple.com/us/artist/dan-k-k/1495535263" target="_blank" rel="noopener noreferrer" class="profile-link-btn apple-music-btn"><div class="profile-icon">🎵</div><div class="profile-text"><div class="profile-name">Dan K-K</div><div class="profile-platform">Apple Music</div></div><div class="profile-arrow">→</div></a></div><div class="iframely-embed-fallback"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://music.apple.com/us/artist/dan-k-k/1495535263" data-iframely-url="//iframely.net/qBVeqvPH?card=small&theme=dark"></a></div></div>',
+                    color: '#fc3c44'
+                },
+                youtubeMusic: {
+                    title: 'YouTube Music',
+                    code: '<div class="music-profile-link"><a href="https://www.youtube.com/channel/UCk92ydajLzLUQS_c1C-kYQQ" target="_blank" rel="noopener noreferrer" class="profile-link-btn youtube-music-btn"><div class="profile-icon">🎵</div><div class="profile-text"><div class="profile-name">Dan K-K</div><div class="profile-platform">YouTube Music</div></div><div class="profile-arrow">→</div></a></div><div class="iframely-embed-fallback"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://www.youtube.com/channel/UCk92ydajLzLUQS_c1C-kYQQ" data-iframely-url="//iframely.net/2ac3c9SM?theme=dark"></a></div></div>',
+                    color: '#ff0000'
+                }
+            },
+            additionalText: '+ dozens more streaming services.',
+            needsIframelyScript: true
+        },
+        'Unreal Engine 5 Game Developer - Rogue Arcanists': {
+            title: 'Unreal Engine 5 Game Developer - Rogue Arcanists',
+            tags: ['Unreal Engine 5', 'Game Development', '3D Design', 'Blueprints', 'Gameplay Abilities'],
+            description: `<div class="project-intro">
+<p>Rogue Arcanists is an ambitious action RPG project built in Unreal Engine 5, combining rogue-like mechanics with immersive spellcasting gameplay. This project showcases advanced game development techniques using UE5's cutting-edge features and modern game design principles.</p>
+</div>
+
+<div class="concept-section">
+<h3>🚧 Development Status</h3>
+<p>Currently in active development with a timeline to be determined. The project represents a significant work-in-progress, with gameplay mechanics, story elements, and core systems being refined and expanded over time.</p>
+</div>
+
+<div class="contributions-section">
+<h3>⚡ Technical Implementation</h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Gameplay Ability System (GAS):</strong> Implemented advanced character abilities and spell mechanics using Unreal's Gameplay Ability System for scalable and modular gameplay features
+</div>
+<div class="feature-item">
+<strong>GAS Companion Plugin:</strong> Integrated marketplace plugin for enhanced GAS functionality and streamlined ability management
+</div>
+<div class="feature-item">
+<strong>Character Progression:</strong> Developed comprehensive attribute system with health, stamina, and stats management through structured data tables
+</div>
+<div class="feature-item">
+<strong>Audio Integration:</strong> Professional audio implementation featuring dynamic soundscapes, ambient environmental audio, and interactive sound effects
+</div>
+<div class="feature-item">
+<strong>Visual Effects:</strong> Extensive particle systems and magical effects using the FX Variety Pack for stunning spell visuals and environmental interactions
+</div>
+<div class="feature-item">
+<strong>UI/UX Design:</strong> Custom user interfaces including main menus, pause systems, options menus, and in-game HUD with health/stamina displays
+</div>
+</div>
+</div>
+
+<div class="rob-section">
+<h3>🎮 Key Features</h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Action RPG Gameplay:</strong> Third-person action RPG gameplay with fluid character movement and combat systems
+</div>
+<div class="feature-item">
+<strong>Magic System:</strong> Comprehensive magic system with diverse spell types including fire, lightning, water, and healing abilities
+</div>
+<div class="feature-item">
+<strong>Particle Effects:</strong> Advanced particle effects for immersive magical combat and environmental interactions
+</div>
+<div class="feature-item">
+<strong>Audio Design:</strong> Professional audio design with layered soundscapes and dynamic music integration
+</div>
+<div class="feature-item">
+<strong>RPG Mechanics:</strong> Modular character attribute system supporting complex RPG mechanics
+</div>
+<div class="feature-item">
+<strong>Game Systems:</strong> Loading screen system, seamless level transitions, and save/load functionality with persistent player progression
+</div>
+</div>
+</div>
+
+<div class="jackson-section">
+<h3>🎨 Assets and Resources</h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Audio Integration:</strong> Professional audio tracks integrated from personal music production portfolio
+</div>
+<div class="feature-item">
+<strong>Visual Effects Library:</strong> High-quality visual effects and particle systems for magical abilities
+</div>
+<div class="feature-item">
+<strong>Environment Assets:</strong> Stylized PBR nature assets for rich environmental design
+</div>
+<div class="feature-item">
+<strong>Character Systems:</strong> Custom character blueprints with advanced animation systems
+</div>
+</div>
+</div>
+
+<div class="summary-section">
+<p><em>The project demonstrates proficiency in modern game development workflows, from initial concept and technical design through implementation of complex gameplay systems. Each system is designed with scalability and modularity in mind, allowing for continuous expansion and refinement of the gaming experience.</em></p>
+</div>`,
+            media: 'Watch the gameplay development video below showcasing current progress and core mechanics in action. This video is a rough demonstration of the current game state with many implemented features mentioned, and awaiting other components waiting to be embedded.',
+            achievements: ['UE5 Advanced Features Implementation', 'Gameplay Ability System Integration', 'Professional Audio Integration', 'Complex RPG Systems'],
+            hasVideo: true,
+            videoPath: './Videos/RogueArcanistsGame - Unreal Editor 2025-08-12 17-09-36.mp4'
+        },
+        'Unity Game Developer - Snackdown': {
+            title: 'Unity Game Developer - Snackdown',
+            tags: ['Unity', 'C# Programming', 'Game Design', 'UI/UX Development', 'Mobile Game Development'],
+            description: `<div class="project-intro">
+<p>Snackdown is an innovative mobile gacha-style tower defense game developed collaboratively with two talented partners: <strong>Rob Buthorn</strong> (Project Lead & Backend Developer) and <strong>Jackson Tatge</strong> (Graphic Designer & Game Designer). My primary role focuses on <strong>UI/UX development</strong>, with supportive contributions to backend architecture and audio creation.</p>
+</div>
+
+<div class="team-section">
+<h3>🤝 Team Collaboration</h3>
+<div class="team-grid">
+<div class="team-member">
+<h4>Rob Buthorn</h4>
+<p class="role">Project Lead & Backend Developer</p>
+<p class="sub-role">Core game systems, data management, gameplay mechanics, combat architecture, progression systems</p>
+</div>
+<div class="team-member">
+<h4>Jackson Tatge</h4>
+<p class="role">Graphic Design Artist & Game Designer</p>
+<p class="sub-role">Visual assets, character designs, artistic direction, UI graphics, environment design</p>
+</div>
+<div class="team-member">
+<h4>Dan Krista-Kelsey (Me)</h4>
+<p class="role">Lead UI/UX Developer</p>
+<p class="sub-role">Supporting Backend Developer & Audio Creator</p>
+</div>
+</div>
+</div>
+
+<div class="concept-section">
+<h3>🎮 Game Concept</h3>
+<p>Snackdown combines strategic tower defense gameplay with gacha collection mechanics, featuring anthropomorphic food characters as collectible defenders. Players build teams of culinary champions to defend against enemy waves across diverse food-themed environments.</p>
+</div>
+
+<div class="contributions-section">
+<h3>⚡ My Technical Contributions</h3>
+
+<div class="contribution-category">
+<h4>UI/UX Development <span class="primary-tag">(Primary Role)</span></h4>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Interface Design:</strong> Mobile-optimized user experience with comprehensive UI systems
+</div>
+<div class="feature-item">
+<strong>Component Systems:</strong> Main menus, campaign navigation, character management interfaces
+</div>
+<div class="feature-item">
+<strong>Modal Systems:</strong> Settings, character information, upgrade progression interfaces
+</div>
+<div class="feature-item">
+<strong>Responsive Design:</strong> Optimal experience across different mobile device sizes
+</div>
+<div class="feature-item">
+<strong>Scene Management:</strong> Loading screens, seamless transitions, bootstrap systems
+</div>
+<div class="feature-item">
+<strong>Interactive Elements:</strong> Custom button animations and user feedback mechanisms
+</div>
+<div class="feature-item">
+<strong>Performance:</strong> Mobile-optimized systems and persistent data management
+</div>
+</div>
+</div>
+
+<div class="contribution-category">
+<h4>Backend Development Advisory</h4>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Architecture Consultation:</strong> Provided strategic input on backend design decisions
+</div>
+<div class="feature-item">
+<strong>Data Templates:</strong> Scriptable Object systems for modular character and level management
+</div>
+</div>
+</div>
+
+<div class="contribution-category">
+<h4>Audio & Music Integration</h4>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Original Compositions:</strong> Professional music tracks from personal portfolio
+</div>
+<div class="feature-item">
+<strong>Dynamic Audio:</strong> Adaptive music systems and environmental sound design
+</div>
+<div class="feature-item">
+<strong>Audio Feedback:</strong> Sound effects and user interaction audio implementation
+</div>
+<div class="feature-item">
+<strong>Audio Management:</strong> Loading systems and seamless audio transitions
+</div>
+</div>
+</div>
+</div>
+
+<div class="rob-section">
+<h3>🔧 Technical Architecture <span class="contributor">(Rob's Implementation)</span></h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Character Controller System:</strong> Modular architecture with state management (Idle, Deploy, Combat, Death) and animation integration
+</div>
+<div class="feature-item">
+<strong>Combat Engine:</strong> Turn-based mechanics with complex damage calculations, status effects, buffs/debuffs, and special ability triggers
+</div>
+<div class="feature-item">
+<strong>Progression Framework:</strong> Multi-tier character evolution system with experience tracking, level-based stat scaling, and upgrade trees
+</div>
+<div class="feature-item">
+<strong>Database Architecture:</strong> SQLite integration for persistent character data, player progress, achievements, and game state management
+</div>
+<div class="feature-item">
+<strong>Gacha System:</strong> Probability-based character acquisition with rarity tiers, pity mechanics, and reward distribution algorithms
+</div>
+<div class="feature-item">
+<strong>Save/Load System:</strong> Comprehensive game state serialization with data integrity checks and version compatibility
+</div>
+<div class="feature-item">
+<strong>Game Logic Core:</strong> Central game manager coordinating turn flow, resource management, and rule enforcement
+</div>
+<div class="feature-item">
+<strong>AI Behavior:</strong> Enemy AI patterns with adaptive difficulty scaling and strategic decision-making algorithms
+</div>
+<div class="feature-item">
+<strong>Performance Optimization:</strong> Memory management, object pooling, and efficient data structures for mobile platforms
+</div>
+</div>
+</div>
+
+<div class="jackson-section">
+<h3>🎨 Creative Assets <span class="contributor">(Jackson's Design)</span></h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Character Art Direction:</strong> Anthropomorphic food characters with unique personality designs, evolution stages, and ability-specific visual effects
+</div>
+<div class="feature-item">
+<strong>Environment Design:</strong> Detailed campaign backgrounds including Berry Beach, Rocky Reef, Eastern & Western Villages with atmospheric depth
+</div>
+<div class="feature-item">
+<strong>UI Visual Assets:</strong> Custom button designs, modal backgrounds, progress bars, and interactive element graphics throughout the game interface
+</div>
+<div class="feature-item">
+<strong>Animation Graphics:</strong> Character state animations, ability effects, death sequences, and environmental particle systems
+</div>
+<div class="feature-item">
+<strong>Typography System:</strong> Custom font implementation with multiple weight variations and stylized text treatments for different UI contexts
+</div>
+<div class="feature-item">
+<strong>Icon Design:</strong> Comprehensive icon library for abilities, resources, menu navigation, and character attributes with consistent visual language
+</div>
+<div class="feature-item">
+<strong>Branding & Identity:</strong> Game logo design, color palette development, and overall artistic vision establishing the "Snackdown" aesthetic
+</div>
+<div class="feature-item">
+<strong>Campaign Visual Narrative:</strong> Chapter-specific art direction creating immersive food-themed worlds with consistent storytelling elements
+</div>
+</div>
+</div>
+
+<div class="summary-section">
+<p><em>This collaborative project demonstrates advanced Unity development skills, clean architectural design, and effective team coordination. Each team member's specialized expertise contributes to creating a polished mobile gaming experience that showcases both technical proficiency and creative innovation.</em></p>
+</div>`,
+            media: 'Watch the gameplay development video below showcasing current UI/UX implementations, character systems, and collaborative development progress. This video demonstrates the current state of our team-developed mobile tower defense game.',
+            achievements: ['Collaborative Team Development', 'Mobile-Optimized UI/UX Design', 'Unity C# Programming', 'Database Integration & Management'],
+            hasVideo: true,
+            videoPath: './Videos/First gacha game - InitScene - Windows, Mac, Linux - Unity 2022.3.1f1 _DX11_ 2025-08-12 17-28-57.mp4'
+        },
+        'Web Design & Development': {
+            title: 'Web Design & Development',
+            tags: ['AI-Assisted Development', 'Claude Code', 'Web Design', 'Learning & Innovation', 'Modern Development'],
+            description: `<div class="project-intro">
+<p>This portfolio website serves as a demonstration of <strong>AI-assisted development</strong> using <strong>Claude Code</strong> and AI agents to supplement traditional coding knowledge. The project showcases my interest in <strong>AI applications</strong> as a tool for learning, improving coding skills, and expanding technical capabilities beyond my educational background in astrophysics.</p>
+</div>
+
+<div class="concept-section">
+<h3>🤖 AI-Assisted Development Philosophy</h3>
+<p>By leveraging Claude Code as a development partner, this project demonstrates how AI can accelerate learning, provide real-time guidance, and enable exploration of new technologies. This approach allows for rapid skill acquisition while maintaining high-quality output and following modern development best practices.</p>
+</div>
+
+<div class="contributions-section">
+<h3>⚡ Development Implementation</h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>AI-Guided Architecture:</strong> Utilized Claude Code agents for project structure planning, component design, and responsive layout implementation
+</div>
+<div class="feature-item">
+<strong>Interactive Design:</strong> Modern UI/UX with smooth animations, modal systems, and seamless navigation enhanced through AI suggestions
+</div>
+<div class="feature-item">
+<strong>Responsive Framework:</strong> Mobile-first design with advanced CSS Grid and Flexbox layouts optimized for all device sizes
+</div>
+<div class="feature-item">
+<strong>Dynamic Content:</strong> JavaScript-powered features including audio players, video integration, and interactive project showcases
+</div>
+<div class="feature-item">
+<strong>Performance Optimization:</strong> AI-assisted code optimization, efficient loading strategies, and cross-browser compatibility
+</div>
+<div class="feature-item">
+<strong>Accessibility Standards:</strong> WCAG compliance with proper semantic HTML, ARIA labels, and keyboard navigation support
+</div>
+</div>
+</div>
+
+<div class="learning-section">
+<h3>📚 Learning & Skill Development</h3>
+<div class="feature-grid">
+<div class="feature-item">
+<strong>Technology Exploration:</strong> Hands-on experience with modern web technologies guided by AI-powered explanations and best practices
+</div>
+<div class="feature-item">
+<strong>Problem-Solving Enhancement:</strong> AI collaboration for debugging, optimization, and implementing complex features beyond current knowledge
+</div>
+<div class="feature-item">
+<strong>Industry Standards:</strong> Learning professional development workflows, version control, and deployment practices through AI mentorship
+</div>
+<div class="feature-item">
+<strong>Rapid Prototyping:</strong> Quick iteration and testing of ideas with AI assistance for faster development cycles
+</div>
+</div>
+</div>
+
+<div class="summary-section">
+<p><em>This project exemplifies how AI can serve as a powerful learning accelerator and development partner, enabling professionals to expand their technical horizons while maintaining quality and efficiency. It demonstrates the practical application of AI tools in bridging knowledge gaps and fostering continuous technical growth.</em></p>
+</div>`,
+            media: 'This website itself serves as a live demonstration of AI-assisted web development, showcasing modern design principles, responsive layouts, and interactive features built through collaborative AI development.',
+            achievements: ['AI-Assisted Development', 'Modern Web Standards', 'Responsive Design', 'Continuous Learning'],
+            hasLiveDemo: true,
+            demoUrl: window.location.href
         }
     };
 
@@ -1099,6 +1495,54 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                             </a>
                         </div>
                     ` : ''}
+                    ${project.hasMusicEmbeds ? `
+                        <div class="music-embeds-section">
+                            <h4>🎵 Listen on Streaming Platforms</h4>
+                            <div class="music-embeds-grid">
+                                ${Object.entries(project.musicEmbeds).map(([platform, embed]) => `
+                                    <div class="music-embed-item" data-platform="${platform}">
+                                        <h5 style="color: ${embed.color};">${embed.title}</h5>
+                                        <div class="music-embed-container">
+                                            ${embed.code}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <p class="streaming-services-text">${project.additionalText}</p>
+                        </div>
+                    ` : ''}
+                    ${project.hasVideo ? `
+                        <div class="video-section">
+                            <div class="video-container">
+                                <video controls preload="metadata" class="modal-video">
+                                    <source src="${project.videoPath}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                    ` : ''}
+                    ${project.hasLiveDemo ? `
+                        <div class="live-demo-section">
+                            <div class="demo-container">
+                                <h4>🌐 Live Demonstration</h4>
+                                <p>You are currently viewing this project! This entire website serves as a live demonstration of the AI-assisted development process and modern web standards described above.</p>
+                                <div class="demo-features">
+                                    <div class="demo-feature">
+                                        <strong>Interactive Elements:</strong> Navigate through different sections to see responsive design in action
+                                    </div>
+                                    <div class="demo-feature">
+                                        <strong>Modal Systems:</strong> This very modal demonstrates the dynamic content system
+                                    </div>
+                                    <div class="demo-feature">
+                                        <strong>Audio Integration:</strong> Visit the Music Production Portfolio for interactive audio player
+                                    </div>
+                                    <div class="demo-feature">
+                                        <strong>Video Support:</strong> Game development videos showcase multimedia integration
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
                     ${project.hasPDF ? `
                         <div class="pdf-section">
                             <div class="pdf-controls">
@@ -1140,6 +1584,23 @@ Projects range from experimental gameplay prototypes to more polished interactiv
             
             // Store reference to destroy on close
             modal.audioPlayer = audioPlayer;
+        }
+
+        // Load iframely script if needed for music embeds
+        if (project.needsIframelyScript) {
+            loadIframelyScript().then(() => {
+                console.log('Iframely processing complete');
+                // Additional processing with retry mechanism
+                setTimeout(() => {
+                    processIframelyEmbeds();
+                }, 500);
+            }).catch(error => {
+                console.error('Error loading iframely:', error);
+                // Fallback: try to process embeds anyway
+                setTimeout(() => {
+                    processIframelyEmbeds();
+                }, 1000);
+            });
         }
 
         // Add event listeners
@@ -1258,6 +1719,110 @@ Projects range from experimental gameplay prototypes to more polished interactiv
     
     // Initialize project cards
     initializeProjectCards();
+
+    // Function to load iframely script for music embeds
+    function loadIframelyScript() {
+        return new Promise((resolve, reject) => {
+            // Check if script is already loaded
+            const existingScript = document.querySelector('script[src*="iframely.net/embed.js"]');
+            
+            if (existingScript) {
+                // Script already exists
+                if (window.iframely && window.iframely.load) {
+                    console.log('Iframely already loaded, processing embeds...');
+                    // Use setTimeout to ensure DOM is ready
+                    setTimeout(() => {
+                        window.iframely.load();
+                        resolve();
+                    }, 100);
+                } else {
+                    // Script loaded but not ready, wait for it
+                    existingScript.addEventListener('load', () => {
+                        setTimeout(() => {
+                            if (window.iframely && window.iframely.load) {
+                                window.iframely.load();
+                            }
+                            resolve();
+                        }, 100);
+                    });
+                }
+                return;
+            }
+
+            // Create and load the script
+            const script = document.createElement('script');
+            script.src = 'https://iframely.net/embed.js';
+            script.async = true;
+            
+            script.onload = function() {
+                console.log('Iframely script loaded successfully');
+                // Wait a bit for the script to initialize, then process embeds
+                setTimeout(() => {
+                    if (window.iframely && window.iframely.load) {
+                        console.log('Processing iframely embeds...');
+                        window.iframely.load();
+                    }
+                    resolve();
+                }, 200);
+            };
+            
+            script.onerror = function() {
+                console.error('Failed to load iframely script');
+                reject(new Error('Failed to load iframely script'));
+            };
+            
+            document.head.appendChild(script);
+        });
+    }
+
+    // Function to process iframely embeds with retry mechanism
+    function processIframelyEmbeds() {
+        const iframelyElements = document.querySelectorAll('.iframely-embed-fallback');
+        console.log('Found iframely fallback elements:', iframelyElements.length);
+        
+        if (iframelyElements.length === 0) return;
+        
+        if (window.iframely) {
+            console.log('Processing with iframely.load()');
+            window.iframely.load();
+            
+            // Check if embeds loaded successfully after delay
+            setTimeout(() => {
+                iframelyElements.forEach((element, index) => {
+                    const responsive = element.querySelector('.iframely-responsive');
+                    if (responsive && responsive.children.length > 1) {
+                        // Embed loaded successfully, show it and hide the profile link
+                        console.log(`Embed ${index} loaded successfully`);
+                        element.style.display = 'block';
+                        const profileLink = element.previousElementSibling;
+                        if (profileLink && profileLink.classList.contains('music-profile-link')) {
+                            profileLink.style.display = 'none';
+                        }
+                    } else {
+                        console.log(`Embed ${index} failed to load, keeping profile link`);
+                        // Keep the profile link visible as fallback
+                    }
+                });
+            }, 3000);
+            
+            // Retry mechanism
+            setTimeout(() => {
+                iframelyElements.forEach((element, index) => {
+                    const responsive = element.querySelector('.iframely-responsive');
+                    if (responsive && responsive.children.length === 1) {
+                        // Only has the original link, try to force refresh
+                        console.log(`Retrying embed ${index}`);
+                        if (window.iframely && window.iframely.load) {
+                            window.iframely.load();
+                        }
+                    }
+                });
+            }, 1000);
+        } else {
+            console.log('Iframely not available, using profile link fallback');
+            // Profile links are already visible as the primary display method
+        }
+    }
     
     // Re-initialize when switching between project tabs to ensure events are bound
     const projectButtons = document.querySelectorAll('[data-tab="technical-projects"], [data-tab="creative-projects"]');

@@ -2062,6 +2062,499 @@ body::after {
     background: linear-gradient(135deg, #5856eb, #7c3aed);
 }
 
+/* Music Embeds Section */
+.music-embeds-section {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.music-embeds-section h4 {
+    color: #ffffff;
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.music-embeds-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 1.5rem 0;
+}
+
+.music-embed-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.music-embed-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.music-embed-item h5 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.music-embed-container {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Spotify specific styling */
+.music-embed-item[data-platform="spotify"] .music-embed-container {
+    box-shadow: 0 8px 30px rgba(29, 185, 84, 0.2);
+    background: rgba(29, 185, 84, 0.1);
+    padding: 1rem;
+}
+
+.music-embed-item[data-platform="spotify"] iframe {
+    width: 100%;
+    height: 352px;
+    border: none;
+    border-radius: 12px;
+}
+
+/* Apple Music specific styling */
+.music-embed-item[data-platform="appleMusic"] .music-embed-container {
+    box-shadow: 0 8px 30px rgba(252, 60, 68, 0.2);
+    background: rgba(252, 60, 68, 0.1);
+    padding: 1rem;
+}
+
+/* YouTube Music specific styling */
+.music-embed-item[data-platform="youtubeMusic"] .music-embed-container {
+    box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
+    background: rgba(255, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+/* Iframely responsive embeds */
+.iframely-embed {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.iframely-responsive {
+    width: 100% !important;
+    height: 140px !important;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.iframely-responsive a {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Fallback styling for iframely content */
+.music-embed-item[data-platform="appleMusic"] .iframely-responsive,
+.music-embed-item[data-platform="youtubeMusic"] .iframely-responsive {
+    min-height: 140px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Loading state for embeds */
+.music-embed-item .iframely-responsive:empty::after {
+    content: "Loading embed...";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+/* Music Profile Link Buttons (Primary Display) */
+.music-profile-link {
+    margin-bottom: 1rem;
+}
+
+.profile-link-btn {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-height: 80px;
+}
+
+.profile-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.apple-music-btn:hover {
+    background: rgba(252, 60, 68, 0.2);
+    border-color: rgba(252, 60, 68, 0.5);
+    box-shadow: 0 8px 25px rgba(252, 60, 68, 0.3);
+}
+
+.youtube-music-btn:hover {
+    background: rgba(255, 0, 0, 0.2);
+    border-color: rgba(255, 0, 0, 0.5);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+}
+
+.profile-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.profile-text {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.profile-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.profile-platform {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.profile-arrow {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.profile-link-btn:hover .profile-arrow {
+    transform: translateX(5px);
+}
+
+/* Hide iframely fallback initially, show if main link fails */
+.iframely-embed-fallback {
+    display: none;
+    margin-top: 1rem;
+}
+
+/* Show iframely embed if it loads successfully */
+.iframely-embed-fallback .iframely-responsive:not(:empty) {
+    display: block;
+}
+
+.music-embed-item[data-platform="appleMusic"] .iframely-embed-fallback:has(.iframely-responsive:not(:empty)),
+.music-embed-item[data-platform="youtubeMusic"] .iframely-embed-fallback:has(.iframely-responsive:not(:empty)) {
+    display: block;
+}
+
+.music-embed-item[data-platform="appleMusic"] .music-profile-link:has(+ .iframely-embed-fallback .iframely-responsive:not(:empty)),
+.music-embed-item[data-platform="youtubeMusic"] .music-profile-link:has(+ .iframely-embed-fallback .iframely-responsive:not(:empty)) {
+    display: none;
+}
+
+.streaming-services-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+}
+
+/* Responsive grid for desktop */
+@media (min-width: 768px) {
+    .music-embeds-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    /* Spotify gets full width, Apple Music and YouTube Music side by side */
+    .music-embed-item[data-platform="spotify"] {
+        grid-column: 1 / -1;
+    }
+    
+    .music-embeds-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .music-embed-item[data-platform="appleMusic"] {
+        grid-column: 1;
+    }
+    
+    .music-embed-item[data-platform="youtubeMusic"] {
+        grid-column: 2;
+    }
+}
+
+/* Video Section Styles */
+.video-section {
+    margin: 1.5rem 0;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.modal-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    background: #000;
+}
+
+.modal-video:focus {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .video-container {
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    .modal-video {
+        border-radius: 8px;
+    }
+}
+
+/* Enhanced Project Modal Formatting */
+.project-intro {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.team-section, .concept-section, .contributions-section, .rob-section, .jackson-section, .summary-section {
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+    border-left: 4px solid #6366f1;
+}
+
+.team-section h3, .concept-section h3, .contributions-section h3, .rob-section h3, .jackson-section h3 {
+    margin-bottom: 1.5rem;
+    color: #6366f1;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.team-member {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.team-member h4 {
+    margin-bottom: 0.4rem;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.team-member .role {
+    color: #8b5cf6;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+}
+
+.team-member .sub-role {
+    color: #a1a1aa;
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+
+.contribution-category {
+    margin: 1.5rem 0;
+}
+
+.contribution-category h4 {
+    color: #f97316;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.primary-tag {
+    background: #f97316;
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.contributor {
+    background: #10b981;
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.6rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.7rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    line-height: 1.4;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.feature-item strong {
+    color: #22d3ee;
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.85rem;
+}
+
+.summary-section {
+    border-left-color: #10b981;
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.summary-section p {
+    font-style: italic;
+    color: #d1d5db;
+    line-height: 1.6;
+}
+
+.learning-section {
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    background: rgba(139, 92, 246, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid #8b5cf6;
+}
+
+.learning-section h3 {
+    margin-bottom: 1.5rem;
+    color: #8b5cf6;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.live-demo-section {
+    margin: 1.5rem 0;
+}
+
+.demo-container {
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.demo-container h4 {
+    color: #22d3ee;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.demo-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.demo-feature {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    line-height: 1.4;
+    font-size: 0.9rem;
+}
+
+.demo-feature strong {
+    color: #22d3ee;
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .team-section, .concept-section, .contributions-section, .rob-section, .jackson-section, .summary-section, .learning-section {
+        padding: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .demo-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.6rem;
+    }
+    
+    .team-member {
+        padding: 0.8rem;
+    }
+    
+    .team-member .sub-role {
+        font-size: 0.8rem;
+    }
+}
+
 .pdf-section {
     margin: 1.5rem 0;
 }
