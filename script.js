@@ -141,37 +141,30 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('wheel', function(e) {
             // If a modal is open, handle scrolling differently
             if (isModalOpen) {
-                const modalContent = document.querySelector('.project-modal.active .modal-content');
-                const playlistContainer = document.querySelector('.project-modal.active .playlist-container');
+                const activeModal = document.querySelector('.project-modal.active');
+                if (!activeModal) return;
                 
+                const modalOverlay = activeModal;
+                const modalContent = activeModal.querySelector('.modal-content');
+                
+                // Check if cursor is over modal content area
                 if (modalContent) {
-                    // Check if cursor is over the playlist container
-                    if (playlistContainer) {
-                        const rect = playlistContainer.getBoundingClientRect();
-                        const isOverPlaylist = e.clientX >= rect.left && e.clientX <= rect.right && 
-                                             e.clientY >= rect.top && e.clientY <= rect.bottom;
-                        
-                        if (isOverPlaylist) {
-                            // Let playlist handle its own scrolling (already has wheel event)
-                            return;
-                        }
-                    }
-                    
-                    // Check if cursor is over modal content
                     const modalRect = modalContent.getBoundingClientRect();
                     const isOverModal = e.clientX >= modalRect.left && e.clientX <= modalRect.right && 
                                       e.clientY >= modalRect.top && e.clientY <= modalRect.bottom;
                     
                     if (isOverModal) {
-                        e.preventDefault();
-                        const scrollAmount = e.deltaY * 0.8;
-                        modalContent.scrollTop += scrollAmount;
+                        // Allow natural scrolling within modal content - don't prevent default
                         return;
                     }
                 }
+                
+                // If scrolling outside modal, prevent it to keep focus on modal
+                e.preventDefault();
+                return;
             }
             
-            // Default behavior - let page scroll normally
+            // Default behavior - let page scroll normally when no modal is open
         }, { passive: false });
     }
 
@@ -1253,6 +1246,11 @@ Projects range from experimental gameplay prototypes to more polished interactiv
 
     window.addEventListener('wheel', function(e) {
         const now = performance.now();
+        
+        // Don't apply smooth scrolling if a modal is open
+        if (isModalOpen) {
+            return;
+        }
         
         // Only apply custom smooth scrolling on desktop with good performance
         if (window.innerWidth > 768 && navigator.hardwareConcurrency >= 4) {
