@@ -1478,8 +1478,9 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                 this.setupPlayer();
                 this.bindEvents();
                 
-                // Ensure toggle is visible
-                this.playerToggle.style.display = '';
+                // Ensure toggle is visible and properly styled
+                this.playerToggle.style.display = 'block';
+                this.playerToggle.style.visibility = 'visible';
                 console.log('Music player setup complete, toggle should be visible');
             } else {
                 console.warn('Music player data not found or musicFiles missing');
@@ -1525,12 +1526,17 @@ Projects range from experimental gameplay prototypes to more polished interactiv
         }
 
         bindEvents() {
-            this.playerToggle.addEventListener('click', (e) => {
+            // Handle both click and touch events for mobile compatibility
+            const toggleHandler = (e) => {
                 e.stopPropagation(); // Prevent this from triggering document click handler
-                console.log('Music toggle clicked, current visible:', this.isVisible);
+                e.preventDefault(); // Prevent double-tap zoom on mobile
+                console.log('Music toggle activated, current visible:', this.isVisible);
                 console.log('Global manager music files:', globalMusicManager.musicFiles.length);
                 this.toggle();
-            });
+            };
+            
+            this.playerToggle.addEventListener('click', toggleHandler);
+            this.playerToggle.addEventListener('touchend', toggleHandler);
 
             // Close on escape key
             document.addEventListener('keydown', (e) => {

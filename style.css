@@ -864,6 +864,8 @@ body {
     user-select: none;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .music-player-toggle:hover {
@@ -929,25 +931,50 @@ body {
 @media (max-width: 768px) {
     .floating-music-player {
         max-height: 85vh;
+        border-radius: 20px 20px 0 0;
     }
     
     .music-player-toggle {
         bottom: 20px;
         right: 20px;
-        padding: 0.6rem 1.2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50% !important;
+        padding: 0;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.6);
+        border: 2px solid rgba(255, 255, 255, 0.2);
     }
     
     .toggle-content {
         font-size: 0.8rem;
-        gap: 0.4rem;
+        gap: 0;
+        flex-direction: column;
     }
     
     .music-icon {
-        font-size: 1.1rem;
+        font-size: 1.4rem;
+        animation: musicPulse 3s infinite;
     }
     
     .toggle-text {
-        display: none; /* Hide text on very small screens */
+        display: none !important; /* Hide text on mobile for bubble effect */
+    }
+    
+    .music-player-toggle:hover,
+    .music-player-toggle:active {
+        transform: translateY(-2px) scale(1.1);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.8);
+    }
+    
+    .music-player-toggle.minimized {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+    
+    .music-player-toggle.minimized .music-icon {
+        animation: none;
     }
 }
 
@@ -959,11 +986,23 @@ body {
     .music-player-toggle {
         bottom: 15px;
         right: 15px;
-        padding: 0.5rem 1rem;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 15px rgba(99, 102, 241, 0.6);
     }
     
     .music-icon {
-        font-size: 1rem;
+        font-size: 1.2rem;
+    }
+    
+    .music-player-toggle:hover {
+        transform: translateY(-1px) scale(1.05);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.7);
     }
 }
 
