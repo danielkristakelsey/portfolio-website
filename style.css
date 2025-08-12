@@ -170,66 +170,65 @@ body {
 /* Mobile audio player optimizations */
 @media (max-width: 768px) {
     .audio-player {
-        padding: 1rem;
-        margin: 1rem 0;
+        padding: 0.75rem;
+        margin: 0.75rem 0;
         border-radius: 16px;
     }
     
     .player-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.75rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
     }
     
     .player-header h4 {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        flex-grow: 1;
     }
     
     .track-stats {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        font-size: 0.8rem;
+        display: none; /* Hide track stats on mobile for space */
     }
     
     .current-track-display {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
     }
     
     .track-artwork {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-    }
-    
-    .current-title {
+        width: 40px;
+        height: 40px;
         font-size: 1rem;
     }
     
+    .current-title {
+        font-size: 0.9rem;
+        line-height: 1.2;
+    }
+    
     .current-category {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .audio-controls-modern {
         flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-        margin-bottom: 1.5rem;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
     }
     
     .control-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
     }
     
     .play-pause-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 1.3rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
     }
     
     .progress-section {
@@ -245,121 +244,186 @@ body {
     }
     
     .volume-slider-modern {
-        width: 150px;
+        width: 120px;
     }
     
-    /* Mobile playlist optimizations */
+    /* Compact mobile playlist */
     .playlist-container {
-        max-height: 400px;
+        max-height: 300px;
     }
     
     .category-header-modern {
-        padding: 0.75rem 1rem;
-        margin-bottom: 0.5rem;
+        padding: 0.6rem 0.75rem;
+        margin-bottom: 0.4rem;
     }
     
     .category-name {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     
     .track-count {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.6rem;
+        font-size: 0.65rem;
+        padding: 0.15rem 0.5rem;
     }
     
     .playlist-item-modern {
-        padding: 0.75rem 1rem;
-        gap: 0.75rem;
+        padding: 0.6rem 0.75rem;
+        gap: 0.6rem;
     }
     
     .track-number {
-        font-size: 0.8rem;
-        width: 25px;
+        font-size: 0.75rem;
+        width: 22px;
     }
     
     .track-title-modern {
-        font-size: 0.9rem;
-        line-height: 1.3;
+        font-size: 0.85rem;
+        line-height: 1.2;
     }
     
     .track-meta {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
     
     .play-btn-modern {
-        width: 35px;
-        height: 35px;
-        font-size: 1.1rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .new-badge {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.6rem;
+    }
+    
+    /* Floating player mobile optimizations */
+    .floating-music-player .audio-player {
+        padding: 0.5rem;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        background: transparent;
+    }
+    
+    .floating-music-player .playlist-container {
+        max-height: 250px;
+    }
+    
+    .floating-music-player .player-header {
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .floating-close-btn {
+        font-size: 1.2rem;
+        width: 26px;
+        height: 26px;
     }
 }
 
 @media (max-width: 480px) {
     .audio-player {
-        padding: 0.75rem;
-        margin: 0.75rem 0;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
     }
     
     .player-header h4 {
-        font-size: 1.1rem;
-    }
-    
-    .track-stats {
-        font-size: 0.75rem;
+        font-size: 0.9rem;
     }
     
     .current-track-display {
-        padding: 0.75rem;
+        padding: 0.5rem;
     }
     
     .track-artwork {
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
     }
     
     .current-title {
-        font-size: 0.95rem;
+        font-size: 0.8rem;
+    }
+    
+    .current-category {
+        font-size: 0.65rem;
     }
     
     .audio-controls-modern {
-        padding: 0.75rem;
-        gap: 0.75rem;
+        padding: 0.5rem;
+        gap: 0.6rem;
     }
     
     .control-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 1rem;
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
     }
     
     .play-pause-btn {
-        width: 48px;
-        height: 48px;
-        font-size: 1.2rem;
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
     }
     
     .volume-slider-modern {
-        width: 120px;
+        width: 100px;
     }
     
     .playlist-container {
-        max-height: 350px;
+        max-height: 200px;
     }
     
     .category-header-modern {
-        padding: 0.6rem 0.75rem;
+        padding: 0.5rem 0.6rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .category-name {
+        font-size: 0.8rem;
+    }
+    
+    .track-count {
+        font-size: 0.6rem;
     }
     
     .playlist-item-modern {
-        padding: 0.6rem 0.75rem;
+        padding: 0.5rem 0.6rem;
+        gap: 0.5rem;
+    }
+    
+    .track-number {
+        font-size: 0.7rem;
+        width: 20px;
     }
     
     .track-title-modern {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .track-meta {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
+    }
+    
+    .play-btn-modern {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+    
+    /* Ultra-compact floating player for very small screens */
+    .floating-music-player .audio-player {
+        padding: 0.4rem;
+    }
+    
+    .floating-music-player .playlist-container {
+        max-height: 180px;
+    }
+    
+    .floating-close-btn {
+        font-size: 1rem;
+        width: 22px;
+        height: 22px;
     }
 }
 
@@ -743,6 +807,164 @@ body {
     line-height: 1.6;
     max-width: 400px;
     margin: 0 auto;
+}
+
+/* Floating Music Player Styles */
+.floating-music-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(145deg, rgba(20, 20, 30, 0.98), rgba(10, 10, 20, 0.98));
+    backdrop-filter: blur(25px);
+    border-top: 1px solid rgba(99, 102, 241, 0.3);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1500;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+.floating-music-player.active {
+    transform: translateY(0);
+}
+
+.music-player-content {
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 102, 241, 0.5) transparent;
+}
+
+.music-player-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.music-player-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.music-player-content::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.5);
+    border-radius: 4px;
+}
+
+.music-player-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    z-index: 1600;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+    transition: all 0.3s ease;
+    user-select: none;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.music-player-toggle:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+}
+
+.music-player-toggle.minimized {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.music-player-toggle.minimized:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.toggle-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.music-icon {
+    font-size: 1.2rem;
+    animation: musicPulse 2s infinite;
+}
+
+@keyframes musicPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.floating-close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    line-height: 1;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+/* Mobile optimizations for floating player */
+@media (max-width: 768px) {
+    .floating-music-player {
+        max-height: 85vh;
+    }
+    
+    .music-player-toggle {
+        bottom: 20px;
+        right: 20px;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .toggle-content {
+        font-size: 0.8rem;
+        gap: 0.4rem;
+    }
+    
+    .music-icon {
+        font-size: 1.1rem;
+    }
+    
+    .toggle-text {
+        display: none; /* Hide text on very small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-music-player {
+        max-height: 90vh;
+    }
+    
+    .music-player-toggle {
+        bottom: 15px;
+        right: 15px;
+        padding: 0.5rem 1rem;
+    }
+    
+    .music-icon {
+        font-size: 1rem;
+    }
 }
 
 /* Background Effects */

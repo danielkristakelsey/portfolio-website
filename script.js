@@ -551,26 +551,191 @@ Projects range from experimental gameplay prototypes to more polished interactiv
         }
     };
 
-    // Audio Player Class
-    class AudioPlayer {
-        constructor(container, musicFiles) {
-            this.container = container;
-            this.musicFiles = musicFiles;
+    // Global Music Manager - Single source of truth for music playback
+    class GlobalMusicManager {
+        constructor() {
+            this.musicFiles = [];
             this.currentTrackIndex = 0;
             this.audio = new Audio();
             this.isPlaying = false;
+            this.listeners = new Set();
+            this.init();
+        }
+
+        init() {
+            // Set initial volume
+            this.audio.volume = 0.7;
+            
+            // Setup audio events
+            this.audio.addEventListener('loadedmetadata', () => this.notifyListeners('loadedmetadata'));
+            this.audio.addEventListener('timeupdate', () => this.notifyListeners('timeupdate'));
+            this.audio.addEventListener('ended', () => this.nextTrack());
+        }
+
+        // Initialize with music data
+        setMusicFiles(musicFiles) {
+            this.musicFiles = musicFiles;
+            this.notifyListeners('musicFilesUpdated');
+        }
+
+        // Register a player UI to receive updates
+        addListener(listener) {
+            this.listeners.add(listener);
+        }
+
+        removeListener(listener) {
+            this.listeners.delete(listener);
+        }
+
+        notifyListeners(event, data = null) {
+            this.listeners.forEach(listener => {
+                if (listener.onMusicManagerEvent) {
+                    listener.onMusicManagerEvent(event, data);
+                }
+            });
+        }
+
+        selectTrack(index) {
+            if (index >= 0 && index < this.musicFiles.length) {
+                this.currentTrackIndex = index;
+                const track = this.musicFiles[index];
+                this.audio.src = track.file;
+                this.notifyListeners('trackChanged', { index, track });
+            }
+        }
+
+        togglePlayPause() {
+            if (this.musicFiles.length === 0) return;
+
+            if (this.isPlaying) {
+                this.audio.pause();
+                this.isPlaying = false;
+            } else {
+                if (!this.audio.src) {
+                    this.selectTrack(0);
+                }
+                this.audio.play();
+                this.isPlaying = true;
+            }
+            this.notifyListeners('playStateChanged', { isPlaying: this.isPlaying });
+        }
+
+        nextTrack() {
+            if (this.currentTrackIndex < this.musicFiles.length - 1) {
+                this.selectTrack(this.currentTrackIndex + 1);
+                if (this.isPlaying) {
+                    this.audio.play();
+                }
+            } else {
+                this.isPlaying = false;
+                this.notifyListeners('playStateChanged', { isPlaying: false });
+            }
+        }
+
+        prevTrack() {
+            if (this.currentTrackIndex > 0) {
+                this.selectTrack(this.currentTrackIndex - 1);
+                if (this.isPlaying) {
+                    this.audio.play();
+                }
+            }
+        }
+
+        seekTo(percent) {
+            if (this.audio.duration) {
+                this.audio.currentTime = percent * this.audio.duration;
+            }
+        }
+
+        setVolume(volume) {
+            this.audio.volume = volume;
+        }
+
+        getCurrentTrack() {
+            if (this.currentTrackIndex >= 0 && this.currentTrackIndex < this.musicFiles.length) {
+                return {
+                    index: this.currentTrackIndex,
+                    track: this.musicFiles[this.currentTrackIndex],
+                    isPlaying: this.isPlaying,
+                    currentTime: this.audio.currentTime || 0,
+                    duration: this.audio.duration || 0
+                };
+            }
+            return null;
+        }
+
+        formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        destroy() {
+            this.audio.pause();
+            this.audio.src = '';
+            this.listeners.clear();
+        }
+    }
+
+    // Create global music manager instance
+    const globalMusicManager = new GlobalMusicManager();
+
+    // Audio Player UI Class - Now just a UI wrapper around the global manager
+    class AudioPlayer {
+        constructor(container, musicFiles, isModalPlayer = false) {
+            this.container = container;
+            this.isModalPlayer = isModalPlayer;
+            
+            // Register with global manager first
+            globalMusicManager.addListener(this);
+            
+            // Initialize music files in global manager if needed
+            if (musicFiles && musicFiles.length > 0 && globalMusicManager.musicFiles.length === 0) {
+                globalMusicManager.setMusicFiles(musicFiles);
+            }
+            
             this.init();
         }
 
         init() {
             this.render();
             this.bindEvents();
-            this.loadDurations();
+            if (globalMusicManager.musicFiles.length > 0) {
+                this.loadDurations();
+            }
+        }
+
+        // Handle events from the global music manager
+        onMusicManagerEvent(event, data) {
+            switch (event) {
+                case 'trackChanged':
+                    this.updateCurrentTrack(data.index, data.track);
+                    this.updatePlaylistActiveState(data.index);
+                    break;
+                case 'playStateChanged':
+                    this.updatePlayPauseButton(data.isPlaying);
+                    break;
+                case 'timeupdate':
+                    this.updateProgress();
+                    break;
+                case 'loadedmetadata':
+                    this.updateTimeDisplay();
+                    break;
+                case 'musicFilesUpdated':
+                    // Re-render with new music files if container is empty
+                    const existingPlayer = this.container.querySelector('.audio-player');
+                    if (!existingPlayer) {
+                        this.render();
+                        this.bindEvents();
+                        this.loadDurations();
+                    }
+                    break;
+            }
         }
 
         async loadDurations() {
             let loadedCount = 0;
-            const totalTracks = this.musicFiles.length;
+            const totalTracks = globalMusicManager.musicFiles.length;
             
             // Update status indicator
             const updateStatus = () => {
@@ -583,7 +748,7 @@ Projects range from experimental gameplay prototypes to more polished interactiv
             // Load durations in batches to avoid overwhelming the browser
             const batchSize = 5;
             for (let i = 0; i < totalTracks; i += batchSize) {
-                const batch = this.musicFiles.slice(i, i + batchSize);
+                const batch = globalMusicManager.musicFiles.slice(i, i + batchSize);
                 const batchPromises = batch.map((track, batchIndex) => {
                     const actualIndex = i + batchIndex;
                     return new Promise((resolve) => {
@@ -597,8 +762,8 @@ Projects range from experimental gameplay prototypes to more polished interactiv
 
                         tempAudio.addEventListener('loadedmetadata', () => {
                             clearTimeout(timeout);
-                            const duration = this.formatTime(tempAudio.duration);
-                            this.musicFiles[actualIndex].duration = duration;
+                            const duration = globalMusicManager.formatTime(tempAudio.duration);
+                            globalMusicManager.musicFiles[actualIndex].duration = duration;
                             loadedCount++;
                             updateStatus();
                             resolve();
@@ -638,15 +803,15 @@ Projects range from experimental gameplay prototypes to more polished interactiv
             if (trackStats) {
                 const totalTracks = trackStats.querySelector('.total-tracks');
                 const genreCount = trackStats.querySelector('.genre-count');
-                if (totalTracks) totalTracks.textContent = `${this.musicFiles.length} tracks`;
+                if (totalTracks) totalTracks.textContent = `${globalMusicManager.musicFiles.length} tracks`;
                 if (genreCount) {
-                    const categories = [...new Set(this.musicFiles.map(track => track.category))];
+                    const categories = [...new Set(globalMusicManager.musicFiles.map(track => track.category))];
                     genreCount.textContent = `${categories.length} genres`;
                 }
             }
 
             // Update individual track durations in the playlist
-            this.musicFiles.forEach((track, index) => {
+            globalMusicManager.musicFiles.forEach((track, index) => {
                 const trackItem = this.container.querySelector(`[data-index="${index}"]`);
                 if (trackItem) {
                     const durationElement = trackItem.querySelector('.track-duration') || trackItem.querySelector('.track-meta');
@@ -662,13 +827,13 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                 }
             });
 
-            console.log('✅ Audio durations loaded for', this.musicFiles.length, 'tracks');
+            console.log('✅ Audio durations loaded for', globalMusicManager.musicFiles.length, 'tracks');
         }
 
         render() {
             // Group music files by category
-            const groupedMusic = this.musicFiles.length > 0 
-                ? this.musicFiles.reduce((acc, track, index) => {
+            const groupedMusic = globalMusicManager.musicFiles.length > 0 
+                ? globalMusicManager.musicFiles.reduce((acc, track, index) => {
                     const category = track.category || 'Uncategorized';
                     if (!acc[category]) acc[category] = [];
                     acc[category].push({ ...track, originalIndex: index });
@@ -697,12 +862,12 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                     <div class="player-header">
                         <h4>🎵 Music Portfolio Player</h4>
                         <div class="track-stats">
-                            <span class="total-tracks">${this.musicFiles.length} tracks</span>
+                            <span class="total-tracks">${globalMusicManager.musicFiles.length} tracks</span>
                             <span class="genre-count">${Object.keys(groupedMusic).length} genres</span>
                             <span class="duration-status">Scanning durations...</span>
                         </div>
                     </div>
-                    ${this.musicFiles.length > 0 ? `
+                    ${globalMusicManager.musicFiles.length > 0 ? `
                         <div class="current-track-display">
                             <div class="track-artwork">🎵</div>
                             <div class="track-details">
@@ -772,7 +937,7 @@ Projects range from experimental gameplay prototypes to more polished interactiv
         }
 
         bindEvents() {
-            if (this.musicFiles.length === 0) return;
+            if (globalMusicManager.musicFiles.length === 0) return;
 
             const playPauseBtn = this.container.querySelector('.play-pause-btn');
             const prevBtn = this.container.querySelector('.prev-btn');
@@ -783,29 +948,29 @@ Projects range from experimental gameplay prototypes to more polished interactiv
             const playlistContainer = this.container.querySelector('.playlist-container');
 
             // Play/Pause button
-            playPauseBtn?.addEventListener('click', () => this.togglePlayPause());
+            playPauseBtn?.addEventListener('click', () => globalMusicManager.togglePlayPause());
 
             // Previous/Next buttons
-            prevBtn?.addEventListener('click', () => this.prevTrack());
-            nextBtn?.addEventListener('click', () => this.nextTrack());
+            prevBtn?.addEventListener('click', () => globalMusicManager.prevTrack());
+            nextBtn?.addEventListener('click', () => globalMusicManager.nextTrack());
 
             // Progress bar click
             progressBar?.addEventListener('click', (e) => this.seekTo(e));
 
             // Volume control
             volumeSlider?.addEventListener('input', (e) => {
-                this.audio.volume = e.target.value / 100;
+                globalMusicManager.setVolume(e.target.value / 100);
             });
 
             // Playlist items
             playlistItems.forEach((item) => {
                 const index = parseInt(item.getAttribute('data-index'));
-                item.addEventListener('click', () => this.selectTrack(index));
+                item.addEventListener('click', () => globalMusicManager.selectTrack(index));
                 const playBtn = item.querySelector('.play-btn-modern');
                 playBtn?.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    this.selectTrack(index);
-                    this.togglePlayPause();
+                    globalMusicManager.selectTrack(index);
+                    globalMusicManager.togglePlayPause();
                 });
             });
 
@@ -816,112 +981,80 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                 playlistContainer.scrollTop += scrollAmount;
             }, { passive: false });
 
-            // Audio events
-            this.audio.addEventListener('loadedmetadata', () => this.updateTimeDisplay());
-            this.audio.addEventListener('timeupdate', () => this.updateProgress());
-            this.audio.addEventListener('ended', () => this.nextTrack());
-
+            // Note: Audio events are now handled by the global manager
             // Set initial volume
-            this.audio.volume = 0.7;
+            volumeSlider.value = 70;
         }
 
-        selectTrack(index) {
-            this.currentTrackIndex = index;
-            const track = this.musicFiles[index];
-            this.audio.src = track.file;
-            
-            // Update current track display
+        // Update UI when track changes
+        updateCurrentTrack(index, track) {
             const currentTitle = this.container.querySelector('.current-title');
             const currentCategory = this.container.querySelector('.current-category');
-            currentTitle.textContent = track.title;
+            
+            if (currentTitle) {
+                currentTitle.textContent = track.title;
+            }
             if (currentCategory) {
                 currentCategory.textContent = track.category || 'Uncategorized';
             }
+        }
 
-            // Update playlist active state
+        // Update playlist active state
+        updatePlaylistActiveState(index) {
             const playlistItems = this.container.querySelectorAll('.playlist-item-modern');
             playlistItems.forEach(item => item.classList.remove('active'));
             
-            // Find and activate the correct playlist item
             const targetItem = this.container.querySelector(`[data-index="${index}"]`);
             if (targetItem) {
                 targetItem.classList.add('active');
             }
         }
 
-        prevTrack() {
-            if (this.currentTrackIndex > 0) {
-                this.selectTrack(this.currentTrackIndex - 1);
-                if (this.isPlaying) {
-                    this.audio.play();
-                }
-            }
-        }
-
-        togglePlayPause() {
-            if (this.musicFiles.length === 0) return;
-
+        // Update play/pause button state
+        updatePlayPauseButton(isPlaying) {
             const playPauseBtn = this.container.querySelector('.play-pause-btn');
-            
-            if (this.isPlaying) {
-                this.audio.pause();
-                playPauseBtn.textContent = '▶️';
-                this.isPlaying = false;
-            } else {
-                if (!this.audio.src) {
-                    this.selectTrack(0);
-                }
-                this.audio.play();
-                playPauseBtn.textContent = '⏸️';
-                this.isPlaying = true;
+            if (playPauseBtn) {
+                playPauseBtn.textContent = isPlaying ? '⏸️' : '▶️';
             }
         }
+
+        // These methods are now handled by the global manager
+        // but we keep them for compatibility if called directly
 
         seekTo(e) {
             const progressBar = e.currentTarget;
             const rect = progressBar.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
-            this.audio.currentTime = percent * this.audio.duration;
+            globalMusicManager.seekTo(percent);
         }
 
         updateProgress() {
             const progressFill = this.container.querySelector('.progress-fill-modern');
             const currentTime = this.container.querySelector('.current-time');
             
-            if (this.audio.duration) {
-                const percent = (this.audio.currentTime / this.audio.duration) * 100;
-                progressFill.style.width = percent + '%';
-                currentTime.textContent = this.formatTime(this.audio.currentTime);
+            const currentTrack = globalMusicManager.getCurrentTrack();
+            if (currentTrack && currentTrack.duration) {
+                const percent = (currentTrack.currentTime / currentTrack.duration) * 100;
+                if (progressFill) {
+                    progressFill.style.width = percent + '%';
+                }
+                if (currentTime) {
+                    currentTime.textContent = globalMusicManager.formatTime(currentTrack.currentTime);
+                }
             }
         }
 
         updateTimeDisplay() {
             const totalTime = this.container.querySelector('.total-time');
-            totalTime.textContent = this.formatTime(this.audio.duration);
-        }
-
-        formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        nextTrack() {
-            if (this.currentTrackIndex < this.musicFiles.length - 1) {
-                this.selectTrack(this.currentTrackIndex + 1);
-                this.audio.play();
-            } else {
-                this.isPlaying = false;
-                const playPauseBtn = this.container.querySelector('.play-pause-btn');
-                playPauseBtn.textContent = '▶️';
+            const currentTrack = globalMusicManager.getCurrentTrack();
+            if (totalTime && currentTrack) {
+                totalTime.textContent = globalMusicManager.formatTime(currentTrack.duration);
             }
         }
 
         destroy() {
-            if (this.audio) {
-                this.audio.pause();
-                this.audio.src = '';
-            }
+            // Unregister from global manager
+            globalMusicManager.removeListener(this);
         }
     }
 
@@ -1003,7 +1136,7 @@ Projects range from experimental gameplay prototypes to more polished interactiv
         // Add audio player if this is a music project
         if (project.hasAudioPlayer) {
             const modalContent = modal.querySelector('.modal-content');
-            const audioPlayer = new AudioPlayer(modalContent, project.musicFiles || []);
+            const audioPlayer = new AudioPlayer(modalContent, project.musicFiles || [], true);
             
             // Store reference to destroy on close
             modal.audioPlayer = audioPlayer;
@@ -1084,7 +1217,8 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                 card.style.cursor = 'pointer';
                 
                 // Create a single click handler
-                const clickHandler = function() {
+                const clickHandler = function(e) {
+                    e.stopPropagation();
                     console.log('Clicked on project:', projectTitle);
                     const project = projectData[projectTitle];
                     if (project) {
@@ -1104,7 +1238,7 @@ Projects range from experimental gameplay prototypes to more polished interactiv
                     this.style.transform = 'translateY(0) scale(1)';
                 };
                 
-                // Add event listeners
+                // Add event listeners with once option to prevent duplicates
                 card.addEventListener('click', clickHandler);
                 card.addEventListener('mouseenter', hoverInHandler);
                 card.addEventListener('mouseleave', hoverOutHandler);
@@ -1125,16 +1259,16 @@ Projects range from experimental gameplay prototypes to more polished interactiv
     // Initialize project cards
     initializeProjectCards();
     
-    // Re-initialize when switching to technical projects tab to ensure events are bound
-    const techProjectsButton = document.querySelector('[data-tab="technical-projects"]');
-    if (techProjectsButton) {
-        techProjectsButton.addEventListener('click', function() {
+    // Re-initialize when switching between project tabs to ensure events are bound
+    const projectButtons = document.querySelectorAll('[data-tab="technical-projects"], [data-tab="creative-projects"]');
+    projectButtons.forEach(button => {
+        button.addEventListener('click', function() {
             // Wait a bit for tab switch animation, then re-initialize
             setTimeout(() => {
                 initializeProjectCards();
             }, 300);
         });
-    }
+    });
 
     // Add hover effects to project cards (non-clickable ones)
     const projectCards = document.querySelectorAll('.project-card:not(.clickable-card)');
@@ -1311,6 +1445,219 @@ Projects range from experimental gameplay prototypes to more polished interactiv
 
     // Initialize global scroll management
     setupGlobalScrollManagement();
+
+    // Floating Music Player Implementation
+    // Creates a toggleable music player that slides up from the bottom of the page
+    // Synced with the music portfolio data and optimized for both desktop and mobile
+    class FloatingMusicPlayer {
+        constructor() {
+            this.isVisible = false;
+            this.audioPlayer = null;
+            this.playerData = null;
+            this.init();
+        }
+
+        init() {
+            this.playerToggle = document.getElementById('music-player-toggle');
+            this.playerContainer = document.getElementById('floating-music-player');
+            this.playerContent = this.playerContainer.querySelector('.music-player-content');
+
+            // Initialize player with music data from project
+            this.playerData = projectData['Music Production Portfolio'];
+            console.log('FloatingMusicPlayer init - playerData found:', !!this.playerData);
+            console.log('FloatingMusicPlayer init - musicFiles count:', this.playerData?.musicFiles?.length || 0);
+            
+            if (this.playerData && this.playerData.musicFiles) {
+                // Initialize global manager with music files first
+                if (globalMusicManager.musicFiles.length === 0) {
+                    console.log('Setting music files in global manager:', this.playerData.musicFiles.length);
+                    globalMusicManager.setMusicFiles(this.playerData.musicFiles);
+                } else {
+                    console.log('Global manager already has music files:', globalMusicManager.musicFiles.length);
+                }
+                this.setupPlayer();
+                this.bindEvents();
+                
+                // Ensure toggle is visible
+                this.playerToggle.style.display = '';
+                console.log('Music player setup complete, toggle should be visible');
+            } else {
+                console.warn('Music player data not found or musicFiles missing');
+                console.log('Available project data keys:', Object.keys(projectData));
+                // Hide toggle if no music data
+                this.playerToggle.style.display = 'none';
+            }
+        }
+
+        setupPlayer() {
+            console.log('FloatingMusicPlayer setupPlayer called');
+            console.log('playerContent element:', !!this.playerContent);
+            console.log('musicFiles to pass:', this.playerData.musicFiles.length);
+            
+            // Create and insert the audio player (not a modal player)
+            this.audioPlayer = new AudioPlayer(this.playerContent, this.playerData.musicFiles, false);
+            
+            // Customize the player for floating mode
+            this.customizeFloatingPlayer();
+            console.log('FloatingMusicPlayer setup completed');
+        }
+
+        customizeFloatingPlayer() {
+            // Add floating player specific header
+            const existingHeader = this.playerContent.querySelector('.player-header');
+            if (existingHeader) {
+                const headerTitle = existingHeader.querySelector('h4');
+                if (headerTitle) {
+                    headerTitle.textContent = '🎵 Portfolio Music Player';
+                }
+                
+                // Add close button to header
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'floating-close-btn';
+                closeBtn.innerHTML = '×';
+                closeBtn.title = 'Minimize Player';
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.hide();
+                });
+                existingHeader.appendChild(closeBtn);
+            }
+        }
+
+        bindEvents() {
+            this.playerToggle.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent this from triggering document click handler
+                console.log('Music toggle clicked, current visible:', this.isVisible);
+                console.log('Global manager music files:', globalMusicManager.musicFiles.length);
+                this.toggle();
+            });
+
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.isVisible) {
+                    this.hide();
+                }
+            });
+
+            // Prevent body scroll when player is open
+            this.playerContainer.addEventListener('wheel', (e) => {
+                e.stopPropagation();
+            });
+
+            // Click outside to close - set up document-wide click listener
+            this.documentClickHandler = (e) => {
+                if (this.isVisible) {
+                    // Check if click is outside the player content and toggle button
+                    const playerContent = this.playerContent;
+                    const toggleButton = this.playerToggle;
+                    
+                    const isClickInsidePlayer = playerContent && playerContent.contains(e.target);
+                    const isClickOnToggle = toggleButton && toggleButton.contains(e.target);
+                    
+                    console.log('Document click detected:', {
+                        target: e.target.tagName,
+                        isClickInsidePlayer,
+                        isClickOnToggle,
+                        playerVisible: this.isVisible
+                    });
+                    
+                    // Close if click is outside both the player content and toggle button
+                    if (!isClickInsidePlayer && !isClickOnToggle) {
+                        console.log('Closing player due to outside click');
+                        this.hide();
+                    }
+                }
+            };
+        }
+
+        show() {
+            this.isVisible = true;
+            this.playerContainer.classList.add('active');
+            this.playerToggle.classList.add('minimized');
+            this.updateToggleText();
+            
+            // Prevent body scroll
+            document.body.style.paddingBottom = '400px';
+            
+            // Announce to screen readers
+            this.playerContainer.setAttribute('aria-hidden', 'false');
+            
+            // Add document click listener to close on outside click
+            setTimeout(() => {
+                document.addEventListener('click', this.documentClickHandler);
+            }, 100); // Small delay to prevent immediate closure from the toggle click
+        }
+
+        hide() {
+            this.isVisible = false;
+            this.playerContainer.classList.remove('active');
+            this.playerToggle.classList.remove('minimized');
+            this.updateToggleText();
+            
+            // Restore body scroll
+            document.body.style.paddingBottom = '';
+            
+            // Announce to screen readers
+            this.playerContainer.setAttribute('aria-hidden', 'true');
+            
+            // Remove document click listener
+            document.removeEventListener('click', this.documentClickHandler);
+        }
+
+        toggle() {
+            if (this.isVisible) {
+                this.hide();
+            } else {
+                this.show();
+            }
+        }
+
+        updateToggleText() {
+            const toggleText = this.playerToggle.querySelector('.toggle-text');
+            const musicIcon = this.playerToggle.querySelector('.music-icon');
+            
+            if (this.isVisible) {
+                toggleText.textContent = 'Minimize';
+                musicIcon.textContent = '⏬';
+                this.playerToggle.title = 'Minimize Music Player';
+                this.playerToggle.setAttribute('aria-label', 'Minimize Music Player');
+            } else {
+                toggleText.textContent = 'Music';
+                musicIcon.textContent = '🎵';
+                this.playerToggle.title = 'Open Music Player';
+                this.playerToggle.setAttribute('aria-label', 'Open Music Player');
+            }
+        }
+
+        // Synchronize with modal player
+        syncWithModalPlayer() {
+            // This method can be called to sync playback state
+            // if both players need to be synchronized
+            // For now, we'll keep them independent to avoid conflicts
+        }
+
+        // Method to programmatically play a specific track
+        playTrack(trackIndex) {
+            if (trackIndex >= 0 && trackIndex < globalMusicManager.musicFiles.length) {
+                globalMusicManager.selectTrack(trackIndex);
+                globalMusicManager.togglePlayPause();
+                if (!this.isVisible) {
+                    this.show();
+                }
+            }
+        }
+        
+        // Get current playing track info
+        getCurrentTrack() {
+            return globalMusicManager.getCurrentTrack();
+        }
+    }
+
+    // Initialize floating music player
+    const floatingMusicPlayer = new FloatingMusicPlayer();
+    
+    // Make it globally accessible for synchronization
+    window.floatingMusicPlayer = floatingMusicPlayer;
 });
 
 // PDF Fullscreen Functionality
