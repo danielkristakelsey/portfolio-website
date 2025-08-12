@@ -277,7 +277,7 @@ This work has direct applications in galaxy evolution studies, stellar formation
             media: 'Published research paper available below. Read the full paper to explore the methodology and findings in detail.',
             achievements: ['Published in The Astronomical Journal (2025)', 'Fourth Author - Section 5 & Appendix', 'NASA Fellowship Recognition'],
             hasPDF: true,
-            pdfPath: 'Technical Projects/Luber_2025_AJ_170_59.pdf',
+            pdfPath: './Technical Projects/Luber_2025_AJ_170_59.pdf',
             hasExternalLink: true,
             externalLink: 'https://iopscience.iop.org/article/10.3847/1538-3881/add2f2',
             externalLinkText: 'View Published Paper'
@@ -300,7 +300,7 @@ The thesis work provides crucial insights for future radio surveys and has appli
             media: 'Complete honors thesis document available below with detailed methodology, results, and analysis.',
             achievements: ['Honors Thesis - May 2023', 'Ultra-deep Radio Analysis', 'Microjansky Precision'],
             hasPDF: true,
-            pdfPath: 'Technical Projects/Honors Thesis - Characterization CHILES Con Pol.pdf'
+            pdfPath: './Technical Projects/Honors Thesis - Characterization CHILES Con Pol.pdf'
         },
         'SDSS-IV DR17: Radial Relationships between Dust Attenuation and Dust Kinematics': {
             title: 'SDSS-IV DR17: Radial Relationships between Dust Attenuation and Dust Kinematics',
@@ -321,7 +321,7 @@ This work contributes to our understanding of dust physics in galaxies and how e
             media: 'Complete project report with detailed analysis and results available in the PDF below.',
             achievements: ['SDSS-IV DR17 Analysis', 'Spatial Dust Mapping', 'Kinematic Correlations'],
             hasPDF: true,
-            pdfPath: 'Technical Projects/SDSS-IV DR17.pdf'
+            pdfPath: './Technical Projects/SDSS-IV DR17.pdf'
         },
         'Relationships Between Dust Attenuation, Stellar Mass, and Star Formation Rate': {
             title: 'Relationships Between Dust Attenuation, Stellar Mass, and Star Formation Rate',
@@ -342,7 +342,7 @@ The findings contribute to our understanding of how galaxies form and evolve, pa
             media: 'Detailed analysis report with statistical models and findings available in the PDF below.',
             achievements: ['Galaxy Scaling Relations', 'Multi-parameter Analysis', 'Evolution Studies'],
             hasPDF: true,
-            pdfPath: 'Technical Projects/Relationships Between Dust Attenuation, Stellar Mass, and Star Formation Rate.pdf'
+            pdfPath: './Technical Projects/Relationships Between Dust Attenuation, Stellar Mass, and Star Formation Rate.pdf'
         },
         'Stellar Structure Project: Metal Fraction Effects on Stellar Properties': {
             title: 'Stellar Structure Project: Metal Fraction Effects on Stellar Properties',
@@ -363,7 +363,7 @@ This work enhances our understanding of stellar physics and has applications in 
             media: 'Complete project report with computational methods, results, and stellar evolution analysis available below.',
             achievements: ['Stellar Structure Modeling', 'Metallicity Effects', 'Mass-Luminosity Relations'],
             hasPDF: true,
-            pdfPath: 'Technical Projects/Stellar_Structure_Project.pdf'
+            pdfPath: './Technical Projects/Stellar_Structure_Project.pdf'
         },
         'Statistical Modeling Pipeline for Astronomical Data': {
             title: 'Statistical Modeling Pipeline for Astronomical Data',
@@ -934,8 +934,14 @@ Projects range from experimental gameplay prototypes to more polished interactiv
 
     // Modal functionality
     function createModal(projectTitle) {
+        console.log('Creating modal for:', projectTitle);
         const project = projectData[projectTitle];
-        if (!project) return;
+        if (!project) {
+            console.error('Project not found:', projectTitle);
+            console.log('Available projects:', Object.keys(projectData));
+            return;
+        }
+        console.log('Project data found:', project.title);
 
         const modal = document.createElement('div');
         modal.className = 'project-modal';
@@ -1042,13 +1048,58 @@ Projects range from experimental gameplay prototypes to more polished interactiv
     }
 
     // Add click events to clickable project cards
-    const clickableCards = document.querySelectorAll('.clickable-card');
-    clickableCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const projectTitle = this.querySelector('h3').textContent;
-            createModal(projectTitle);
+    function initializeProjectCards() {
+        const clickableCards = document.querySelectorAll('.clickable-card');
+        console.log('Found clickable cards:', clickableCards.length);
+        
+        clickableCards.forEach((card, index) => {
+            const h3Element = card.querySelector('h3');
+            if (h3Element) {
+                const projectTitle = h3Element.textContent.trim();
+                console.log(`Card ${index}: "${projectTitle}"`);
+                
+                // Add visual feedback for clickable cards
+                card.style.cursor = 'pointer';
+                
+                card.addEventListener('click', function() {
+                    console.log('Clicked on project:', projectTitle);
+                    const project = projectData[projectTitle];
+                    if (project) {
+                        console.log('Found project data, creating modal');
+                        createModal(projectTitle);
+                    } else {
+                        console.error('No project data found for:', projectTitle);
+                        console.log('Available projects:', Object.keys(projectData));
+                    }
+                });
+                
+                // Add hover effect
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            } else {
+                console.warn('No h3 element found in card:', index);
+            }
         });
-    });
+    }
+    
+    // Initialize project cards
+    initializeProjectCards();
+    
+    // Re-initialize when switching to technical projects tab to ensure events are bound
+    const techProjectsButton = document.querySelector('[data-tab="technical-projects"]');
+    if (techProjectsButton) {
+        techProjectsButton.addEventListener('click', function() {
+            // Wait a bit for tab switch animation, then re-initialize
+            setTimeout(() => {
+                initializeProjectCards();
+            }, 300);
+        });
+    }
 
     // Add hover effects to project cards (non-clickable ones)
     const projectCards = document.querySelectorAll('.project-card:not(.clickable-card)');
