@@ -47,13 +47,14 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     padding: 3rem;
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
     transform: translateY(30px);
     transition: transform 0.3s ease;
+    backdrop-filter: blur(20px);
 }
 
 .project-modal.active .modal-content {
@@ -129,7 +130,8 @@ body {
 
 .clickable-card:hover {
     transform: translateY(-5px) scale(1.02);
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(34, 197, 94, 0.2);
 }
 
 /* Modern Audio Player Styles */
@@ -1319,6 +1321,33 @@ body::before {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+.project-card.clickable-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card.clickable-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), rgba(34, 197, 94, 0.02));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 16px;
+}
+
+.project-card.clickable-card:hover::after {
+    opacity: 1;
+}
+
+.project-card.clickable-card::before {
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+}
+
 .project-card.coming-soon {
     opacity: 0.8;
 }
@@ -1368,13 +1397,35 @@ body::before {
 }
 
 .achievement {
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.2);
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
     font-size: 0.85rem;
     color: #86efac;
     font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.achievement:hover {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.4);
+    transform: translateY(-1px);
+}
+
+.modal-achievements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    font-style: italic;
 }
 
 /* Footer */
@@ -1770,6 +1821,70 @@ body::before {
     
     .hero-section {
         min-height: calc(100vh - 70px);
+    }
+}
+
+/* Medium desktop modal optimizations */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .modal-content {
+        max-width: 900px;
+        width: 90%;
+        padding: 3rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .modal-description {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+}
+
+/* Desktop modal optimizations */
+@media (min-width: 1024px) {
+    .modal-content {
+        max-width: 1400px;
+        width: 95%;
+        padding: 4rem;
+        border-radius: 24px;
+    }
+    
+    .modal-header h2 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .modal-description {
+        font-size: 1.2rem;
+        line-height: 1.9;
+        margin-bottom: 2.5rem;
+    }
+    
+    .modal-tags {
+        margin-bottom: 2.5rem;
+    }
+    
+    .modal-tags .tag {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+    }
+    
+    .modal-media {
+        padding: 2.5rem;
+        margin-bottom: 2.5rem;
+        border-radius: 16px;
+    }
+    
+    .modal-achievements {
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    
+    .achievement {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
     }
 }
 
